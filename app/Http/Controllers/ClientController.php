@@ -7,6 +7,9 @@ use App\Models\Ticket;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Mail\TicketConfirmation;
 
 class ClientController extends Controller
 {
@@ -133,14 +136,19 @@ class ClientController extends Controller
         if ($event->isFree()) {
             // For free events, mark as paid immediately
             $ticket->update(['payment_status' => 'paid']);
-            
-            // Send confirmation email (implement later)
-            // Mail::to(Auth::user())->send(new TicketConfirmation($ticket));
-            
+
+            // Send confirmation email
+            try {
+                Mail::to(Auth::user())->send(new TicketConfirmation($ticket));
+                Log::info("Free ticket confirmation email sent for ticket ID: {$ticket->id}");
+            } catch (\Exception $e) {
+                Log::error("Failed to send free ticket confirmation email for ticket ID {$ticket->id}: " . $e->getMessage());
+            }
+
             return redirect()->route('client.ticket-details', $ticket)
-                ->with('success', 'Your free tickets have been booked successfully!');
+                ->with('success', 'Your free tickets have been booked successfully! Check your email for confirmation.');
         } else {
-            // For paid events, redirect to payment
+            // For paid events, redirect to Stripe Checkout
             return redirect()->route('payment.checkout', $ticket);
         }
     }

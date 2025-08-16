@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use App\Mail\TicketConfirmation;
 use Illuminate\Support\Str;
 use Stripe\Stripe;
+use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\Exception\CardException;
 use Stripe\Exception\ApiErrorException;
@@ -117,7 +118,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Show checkout page for a ticket
+     * Create Stripe Checkout Session and redirect to hosted checkout
      */
     public function checkout(Ticket $ticket)
     {
@@ -140,7 +141,59 @@ class PaymentController extends Controller
 
         $ticket->load('event');
 
-        return view('payment.checkout', compact('ticket'));
+        try {
+            // Calculate total amount including platform fee (5%)
+            $subtotal = $ticket->total_price;
+            $platformFee = $subtotal * 0.05;
+            $totalAmount = $subtotal + $platformFee;
+
+            // Create Stripe Checkout Session
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'usd',
+                            'product_data' => [
+                                'name' => $ticket->event->title,
+                                'description' => "Event Date: " . $ticket->event->start_date->format('F j, Y \a\t g:i A') .
+                                               "\nLocation: " . $ticket->event->location .
+                                               "\nQuantity: " . $ticket->quantity . " ticket(s)",
+                            ],
+                            'unit_amount' => round($totalAmount * 100), // Convert to cents
+                        ],
+                        'quantity' => 1,
+                    ],
+                ],
+                'mode' => 'payment',
+                'success_url' => route('payment.success', $ticket) . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('payment.cancel', $ticket),
+                'metadata' => [
+                    'ticket_id' => $ticket->id,
+                    'event_id' => $ticket->event_id,
+                    'client_id' => $ticket->client_id,
+                    'subtotal' => round($subtotal * 100),
+                    'platform_fee' => round($platformFee * 100),
+                    'total_amount' => round($totalAmount * 100),
+                ],
+                'customer_email' => Auth::user()->email,
+                'expires_at' => now()->addMinutes(30)->timestamp, // Session expires in 30 minutes
+            ]);
+
+            // Store the session ID in the ticket for reference
+            $ticket->update([
+                'stripe_session_id' => $session->id,
+                'payment_status' => 'pending'
+            ]);
+
+            // Redirect to Stripe Checkout
+            return redirect($session->url);
+
+        } catch (ApiErrorException $e) {
+            Log::error('Stripe Checkout Session creation failed: ' . $e->getMessage());
+            return redirect()->route('events.show', $ticket->event)
+                ->with('error', 'Unable to process payment at this time. Please try again.');
+        }
     }
 
     /**
@@ -257,13 +310,37 @@ class PaymentController extends Controller
     /**
      * Handle payment success page
      */
-    public function success(Ticket $ticket)
+    public function success(Request $request, Ticket $ticket)
     {
         // Ensure the ticket belongs to the authenticated user
         if ($ticket->client_id !== Auth::id()) {
             abort(403);
         }
 
+        // If session_id is provided, verify the Stripe session
+        if ($request->has('session_id')) {
+            try {
+                $session = Session::retrieve($request->session_id);
+
+                // Verify this session belongs to this ticket
+                if ($session->metadata->ticket_id != $ticket->id) {
+                    return redirect()->route('events.show', $ticket->event)
+                        ->with('error', 'Invalid payment session.');
+                }
+
+                // If payment is successful but ticket not yet marked as paid
+                if ($session->payment_status === 'paid' && !$ticket->isPaid()) {
+                    $this->processSuccessfulPayment($ticket, $session);
+                }
+
+            } catch (ApiErrorException $e) {
+                Log::error('Error retrieving Stripe session: ' . $e->getMessage());
+                return redirect()->route('events.show', $ticket->event)
+                    ->with('error', 'Unable to verify payment. Please contact support.');
+            }
+        }
+
+        // Check if ticket is paid
         if (!$ticket->isPaid()) {
             return redirect()->route('payment.checkout', $ticket)
                 ->with('error', 'Payment not completed yet.');
@@ -272,6 +349,59 @@ class PaymentController extends Controller
         $ticket->load(['event', 'payment']);
 
         return view('payment.success', compact('ticket'));
+    }
+
+    /**
+     * Process successful payment from Stripe Checkout Session
+     */
+    private function processSuccessfulPayment(Ticket $ticket, $session)
+    {
+        try {
+            // Get payment intent from session
+            $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
+
+            // Calculate amounts
+            $totalAmount = $session->amount_total / 100; // Convert from cents
+            $subtotal = $session->metadata->subtotal / 100;
+            $platformFee = $session->metadata->platform_fee / 100;
+            $organizerAmount = $subtotal - $platformFee;
+
+            // Create payment record
+            $payment = Payment::create([
+                'event_id' => $ticket->event_id,
+                'client_id' => $ticket->client_id,
+                'ticket_id' => $ticket->id,
+                'stripe_payment_intent_id' => $paymentIntent->id,
+                'stripe_session_id' => $session->id,
+                'amount' => $subtotal,
+                'admin_fee' => $platformFee,
+                'organizer_amount' => $organizerAmount,
+                'total_amount' => $totalAmount,
+                'payment_method' => 'card',
+                'status' => 'completed',
+                'processed_at' => now(),
+            ]);
+
+            // Update ticket status
+            $ticket->update([
+                'payment_status' => 'paid',
+                'payment_id' => $payment->id,
+            ]);
+
+            // Send confirmation email
+            try {
+                Mail::to($ticket->client)->send(new TicketConfirmation($ticket));
+                Log::info("Ticket confirmation email sent for ticket ID: {$ticket->id}");
+            } catch (\Exception $e) {
+                Log::error("Failed to send ticket confirmation email for ticket ID {$ticket->id}: " . $e->getMessage());
+            }
+
+            Log::info("Payment processed successfully for ticket ID: {$ticket->id}");
+
+        } catch (\Exception $e) {
+            Log::error("Error processing successful payment for ticket ID {$ticket->id}: " . $e->getMessage());
+            throw $e;
+        }
     }
 
     /**
@@ -350,6 +480,11 @@ class PaymentController extends Controller
 
         // Handle the event
         switch ($event['type']) {
+            case 'checkout.session.completed':
+                $session = $event['data']['object'];
+                $this->handleCheckoutSessionCompleted($session);
+                break;
+
             case 'payment_intent.succeeded':
                 $paymentIntent = $event['data']['object'];
                 $this->handlePaymentSucceeded($paymentIntent);
@@ -361,11 +496,36 @@ class PaymentController extends Controller
                 break;
 
             default:
-                // Unexpected event type
-                return response('Unexpected event type', 400);
+                // Log unexpected event type but don't return error
+                Log::info('Received unexpected Stripe webhook event type: ' . $event['type']);
+                break;
         }
 
         return response('Success', 200);
+    }
+
+    /**
+     * Handle Stripe Checkout Session completion
+     */
+    private function handleCheckoutSessionCompleted($session)
+    {
+        $ticketId = $session['metadata']['ticket_id'] ?? null;
+
+        if ($ticketId) {
+            $ticket = Ticket::find($ticketId);
+
+            if ($ticket && !$ticket->isPaid()) {
+                try {
+                    // Get the Stripe Session object for more details
+                    $stripeSession = Session::retrieve($session['id']);
+                    $this->processSuccessfulPayment($ticket, $stripeSession);
+
+                    Log::info("Checkout session completed for ticket ID: {$ticketId}");
+                } catch (\Exception $e) {
+                    Log::error("Error processing checkout session completion for ticket ID {$ticketId}: " . $e->getMessage());
+                }
+            }
+        }
     }
 
     /**

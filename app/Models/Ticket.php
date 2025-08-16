@@ -17,6 +17,8 @@ class Ticket extends Model
         'total_price',
         'payment_status',
         'transaction_id',
+        'stripe_session_id',
+        'payment_id',
         'ticket_code',
         'is_used',
         'used_at',

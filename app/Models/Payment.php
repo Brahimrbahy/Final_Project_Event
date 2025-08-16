@@ -16,9 +16,13 @@ class Payment extends Model
         'amount',
         'admin_fee',
         'organizer_amount',
+        'total_amount',
         'stripe_payment_id',
         'stripe_payment_intent_id',
+        'stripe_session_id',
+        'payment_method',
         'status',
+        'processed_at',
         'stripe_response',
     ];
 
@@ -28,6 +32,8 @@ class Payment extends Model
             'amount' => 'decimal:2',
             'admin_fee' => 'decimal:2',
             'organizer_amount' => 'decimal:2',
+            'total_amount' => 'decimal:2',
+            'processed_at' => 'datetime',
             'stripe_response' => 'array',
         ];
     }

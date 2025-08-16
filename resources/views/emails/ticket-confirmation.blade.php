@@ -183,7 +183,13 @@
                 @if($ticket->event->type === 'paid')
                 <div class="detail-item">
                     <div class="detail-label">Total Paid</div>
-                    <div class="detail-value">${{ number_format($ticket->total_price * 1.15, 2) }}</div>
+                    <div class="detail-value">
+                        @if($ticket->payment && $ticket->payment->total_amount)
+                            ${{ number_format($ticket->payment->total_amount, 2) }}
+                        @else
+                            ${{ number_format($ticket->total_price * 1.05, 2) }}
+                        @endif
+                    </div>
                 </div>
                 @else
                 <div class="detail-item">
@@ -217,9 +223,17 @@
             </ul>
         </div>
 
-        <!-- Action Button -->
+        <!-- Action Buttons -->
         <div style="text-align: center; margin: 30px 0;">
-            <a href="{{ route('events.show', $ticket->event) }}" class="button">
+            <a href="{{ route('client.ticket-details', $ticket) }}" class="button">
+                🎫 View Ticket Details
+            </a>
+            <br>
+            <a href="{{ route('client.download-ticket', $ticket) }}" class="button" style="background-color: #059669; margin-top: 10px;">
+                📥 Download Ticket PDF
+            </a>
+            <br>
+            <a href="{{ route('events.show', $ticket->event) }}" class="button" style="background-color: #6b7280; margin-top: 10px;">
                 📋 View Event Details
             </a>
         </div>
