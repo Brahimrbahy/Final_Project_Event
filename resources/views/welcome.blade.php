@@ -33,113 +33,194 @@
     </style>
 </head>
 <body class="font-sans antialiased bg-gray-50">
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <a href="{{ route('welcome') }}" class="flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-xl">E</span>
-                        </div>
-                        <span class="text-xl font-bold text-gray-900">EventHub</span>
-                    </a>
-                </div>
+    <!-- Three-Line Navigation Structure -->
+    <nav class="sticky top-0 z-50" style="background-color: #1a2332;">
+        <!-- Line 1: Top Navigation (Logo + Auth) -->
+        <div class="border-b border-slate-600">
+            <div class="max-w-full px-6">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo Section -->
+                    <div class="flex-shrink-0">
+                        <a href="{{ route('welcome') }}" class="flex items-center">
+                            <h1 class="text-3xl font-bold text-white tracking-wide">
+                                <span class="text-red-500">G</span><span class="text-yellow-400">u</span><span class="text-green-500">i</span><span class="text-blue-500">c</span><span class="text-white">het</span>
+                            </h1>
+                        </a>
+                    </div>
 
-                <!-- Search Bar (Desktop) -->
-                <div class="hidden md:flex flex-1 max-w-lg mx-8">
-                    <form action="{{ route('events.index') }}" method="GET" class="w-full">
-                        <div class="relative">
-                            <input type="text" name="search" placeholder="Search events, locations, organizers..." 
-                                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent search-focus"
-                                   value="{{ request('search') }}">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    <!-- Authentication Section -->
+                    <div class="flex items-center space-x-3">
+                        @auth
+                            @if(Auth::user()->isAdmin())
+                                <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">Admin Dashboard</a>
+                            @elseif(Auth::user()->isOrganizer())
+                                <a href="{{ route('organizer.dashboard') }}" class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My Dashboard</a>
+                            @else
+                                <a href="{{ route('client.dashboard') }}" class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My Tickets</a>
+                            @endif
 
-                <!-- Navigation Links -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="{{ route('events.index') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200">
-                        Browse Events
-                    </a>
-                    
-                    @auth
-                        @if(Auth::user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
-                                Admin Dashboard
-                            </a>
-                        @elseif(Auth::user()->isOrganizer())
-                            <a href="{{ route('organizer.dashboard') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
-                                My Dashboard
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="text-white hover:text-red-400 px-3 py-2 text-sm font-medium transition-colors">
+                                    Logout
+                                </button>
+                            </form>
                         @else
-                            <a href="{{ route('client.dashboard') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
-                                My Tickets
-                            </a>
-                        @endif
-                        
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @csrf
-                            <button type="submit" class="text-gray-700 hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200">
-                                Logout
-                            </button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200">
-                            Login
-                        </a>
-                        <a href="{{ route('register.client') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-200">
-                            Register
-                        </a>
-                    @endauth
-                </div>
+                            <a href="{{ route('login') }}" class="text-white hover:text-blue-400 px-4 py-2 text-sm font-medium transition-colors border border-slate-600 rounded-lg hover:border-blue-400">Login</a>
+                            <a href="{{ route('register.client') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">Register</a>
+                        @endauth
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button type="button" class="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600" onclick="toggleMobileMenu()">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
+                        <!-- Mobile menu button -->
+                        <div class="lg:hidden">
+                            <button type="button" class="text-white hover:text-blue-400 focus:outline-none focus:text-blue-400 ml-4" onclick="toggleMobileMenu()">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="md:hidden hidden">
-                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50">
-                    <!-- Mobile Search -->
-                    <form action="{{ route('events.index') }}" method="GET" class="mb-3">
-                        <input type="text" name="search" placeholder="Search events..." 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                               value="{{ request('search') }}">
-                    </form>
-                    
-                    <a href="{{ route('events.index') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Browse Events</a>
-                    
-                    @auth
-                        @if(Auth::user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Admin Dashboard</a>
-                        @elseif(Auth::user()->isOrganizer())
-                            <a href="{{ route('organizer.dashboard') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">My Dashboard</a>
-                        @else
-                            <a href="{{ route('client.dashboard') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">My Tickets</a>
-                        @endif
-                        
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-red-600">Logout</button>
+        <!-- Line 2: Search Bar with Category Filter -->
+        <div class="border-b border-slate-600">
+            <div class="max-w-full px-6">
+                <div class="flex justify-center items-center h-16">
+                    <div class="w-full max-w-4xl">
+                        <form action="{{ route('events.index') }}" method="GET" class="flex items-center space-x-3">
+                            <!-- Category Filter Dropdown -->
+                            <div class="relative">
+                                <select name="category" class="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <option value="">Toutes catégories</option>
+                                    <option value="Concerts" {{ request('category') === 'Concerts' ? 'selected' : '' }}>🎵 Concerts</option>
+                                    <option value="Festivals" {{ request('category') === 'Festivals' ? 'selected' : '' }}>🎪 Festivals</option>
+                                    <option value="Theatre" {{ request('category') === 'Theatre' ? 'selected' : '' }}>🎭 Théâtre</option>
+                                    <option value="Sports" {{ request('category') === 'Sports' ? 'selected' : '' }}>⚽ Sports</option>
+                                    <option value="Cinema" {{ request('category') === 'Cinema' ? 'selected' : '' }}>🎬 Cinéma</option>
+                                    <option value="Business" {{ request('category') === 'Business' ? 'selected' : '' }}>💼 Business</option>
+                                    <option value="Technology" {{ request('category') === 'Technology' ? 'selected' : '' }}>💻 Technology</option>
+                                    <option value="Arts & Culture" {{ request('category') === 'Arts & Culture' ? 'selected' : '' }}>🎨 Arts & Culture</option>
+                                    <option value="Education" {{ request('category') === 'Education' ? 'selected' : '' }}>📚 Education</option>
+                                    <option value="Food & Drink" {{ request('category') === 'Food & Drink' ? 'selected' : '' }}>🍽️ Food & Drink</option>
+                                    <option value="Health & Wellness" {{ request('category') === 'Health & Wellness' ? 'selected' : '' }}>🏥 Health & Wellness</option>
+                                </select>
+                            </div>
+
+                            <!-- Search Input -->
+                            <div class="relative flex-1">
+                                <input type="text"
+                                       name="search"
+                                       placeholder="Cherchez ce que vous voulez"
+                                       class="w-full pl-4 pr-12 py-3 bg-slate-700 text-white placeholder-gray-300 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                                       value="{{ request('search') }}">
+                                <button type="submit" class="absolute inset-y-0 right-0 pr-4 flex items-center">
+                                    <svg class="w-5 h-5 text-gray-300 hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </form>
-                    @else
-                        <a href="{{ route('login') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Login</a>
-                        <a href="{{ route('register.client') }}" class="block px-3 py-2 bg-blue-600 text-white rounded-lg text-center">Register</a>
-                    @endauth
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Line 3: Category Navigation Links -->
+        <div>
+            <div class="max-w-full px-6">
+                <div class="flex items-center justify-center space-x-6 h-14 overflow-x-auto">
+                    <a href="{{ route('events.index', ['category' => 'Concerts']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Concerts' ? 'text-blue-400' : '' }}">
+                        <span>🎵</span>
+                        <span>Concerts</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Festivals']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Festivals' ? 'text-blue-400' : '' }}">
+                        <span>🎪</span>
+                        <span>Festivals</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Theatre']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Theatre' ? 'text-blue-400' : '' }}">
+                        <span>🎭</span>
+                        <span>Théâtre</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Sports']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Sports' ? 'text-blue-400' : '' }}">
+                        <span>⚽</span>
+                        <span>Sports</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Cinema']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Cinema' ? 'text-blue-400' : '' }}">
+                        <span>🎬</span>
+                        <span>Cinéma</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Business']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Business' ? 'text-blue-400' : '' }}">
+                        <span>💼</span>
+                        <span>Business</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Technology']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Technology' ? 'text-blue-400' : '' }}">
+                        <span>💻</span>
+                        <span>Technology</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Arts & Culture']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Arts & Culture' ? 'text-blue-400' : '' }}">
+                        <span>🎨</span>
+                        <span>Arts & Culture</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Education']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Education' ? 'text-blue-400' : '' }}">
+                        <span>📚</span>
+                        <span>Education</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Food & Drink']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Food & Drink' ? 'text-blue-400' : '' }}">
+                        <span>🍽️</span>
+                        <span>Food & Drink</span>
+                    </a>
+                    <a href="{{ route('events.index', ['category' => 'Health & Wellness']) }}" class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Health & Wellness' ? 'text-blue-400' : '' }}">
+                        <span>🏥</span>
+                        <span>Health & Wellness</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3" style="background-color: #1e293b;">
+                <!-- Mobile Search with Category -->
+                <form action="{{ route('events.index') }}" method="GET" class="mb-3 space-y-3">
+                    <select name="category" class="w-full bg-slate-700 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+                        <option value="">Toutes catégories</option>
+                        <option value="Concerts" {{ request('category') === 'Concerts' ? 'selected' : '' }}>🎵 Concerts</option>
+                        <option value="Festivals" {{ request('category') === 'Festivals' ? 'selected' : '' }}>🎪 Festivals</option>
+                        <option value="Theatre" {{ request('category') === 'Theatre' ? 'selected' : '' }}>🎭 Théâtre</option>
+                        <option value="Sports" {{ request('category') === 'Sports' ? 'selected' : '' }}>⚽ Sports</option>
+                        <option value="Cinema" {{ request('category') === 'Cinema' ? 'selected' : '' }}>🎬 Cinéma</option>
+                        <option value="Business" {{ request('category') === 'Business' ? 'selected' : '' }}>💼 Business</option>
+                        <option value="Technology" {{ request('category') === 'Technology' ? 'selected' : '' }}>💻 Technology</option>
+                        <option value="Arts & Culture" {{ request('category') === 'Arts & Culture' ? 'selected' : '' }}>🎨 Arts & Culture</option>
+                        <option value="Education" {{ request('category') === 'Education' ? 'selected' : '' }}>📚 Education</option>
+                        <option value="Food & Drink" {{ request('category') === 'Food & Drink' ? 'selected' : '' }}>🍽️ Food & Drink</option>
+                        <option value="Health & Wellness" {{ request('category') === 'Health & Wellness' ? 'selected' : '' }}>🏥 Health & Wellness</option>
+                    </select>
+                    <input type="text" name="search" placeholder="Cherchez ce que vous voulez..."
+                           class="w-full px-3 py-2 bg-slate-700 text-white placeholder-gray-300 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+                           value="{{ request('search') }}">
+                    <button type="submit" class="w-full bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700">Rechercher</button>
+                </form>
+
+                <!-- Mobile Auth Links -->
+                @auth
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 text-white hover:text-blue-400 hover:bg-slate-700 rounded-lg">Admin Dashboard</a>
+                    @elseif(Auth::user()->isOrganizer())
+                        <a href="{{ route('organizer.dashboard') }}" class="block px-3 py-2 text-white hover:text-blue-400 hover:bg-slate-700 rounded-lg">My Dashboard</a>
+                    @else
+                        <a href="{{ route('client.dashboard') }}" class="block px-3 py-2 text-white hover:text-blue-400 hover:bg-slate-700 rounded-lg">My Tickets</a>
+                    @endif
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="block w-full text-left px-3 py-2 text-white hover:text-red-400 hover:bg-slate-700 rounded-lg">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="block px-3 py-2 text-white hover:text-blue-400 hover:bg-slate-700 rounded-lg">Login</a>
+                    <a href="{{ route('register.client') }}" class="block px-3 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700">Register</a>
+                @endauth
             </div>
         </div>
     </nav>
