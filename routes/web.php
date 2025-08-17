@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 // Public routes
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [EventController::class, 'home'])->name('welcome');
 Route::get('/home', [EventController::class, 'home'])->name('home');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
@@ -21,6 +19,7 @@ Route::get('/events/type/free', [EventController::class, 'free'])->name('events.
 Route::get('/events/type/paid', [EventController::class, 'paid'])->name('events.paid');
 Route::get('/api/events/search', [EventController::class, 'search'])->name('events.search');
 Route::get('/api/events/calendar', [EventController::class, 'calendar'])->name('events.calendar');
+Route::get('/api/events/load-more', [EventController::class, 'loadMoreEvents'])->name('events.load-more');
 
 // Ticket purchase routes (for authenticated users)
 Route::middleware('auth')->group(function () {

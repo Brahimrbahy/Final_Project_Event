@@ -208,28 +208,20 @@ class EventController extends Controller
      */
     public function home()
     {
-        $featuredEvents = Event::approved()
+        // Latest 4 events for image carousel (ordered by creation date)
+        $latestEvents = Event::approved()
             ->upcoming()
             ->with('organizer')
-            ->orderBy('start_date')
-            ->take(6)
-            ->get();
-
-        $freeEvents = Event::approved()
-            ->upcoming()
-            ->byType('free')
-            ->with('organizer')
-            ->orderBy('start_date')
+            ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-        $paidEvents = Event::approved()
+        // All events for the main listing (paginated, ordered by start date)
+        $allEvents = Event::approved()
             ->upcoming()
-            ->byType('paid')
             ->with('organizer')
             ->orderBy('start_date')
-            ->take(4)
-            ->get();
+            ->paginate(9); // Initial load of 9 events
 
         $categories = Event::approved()
             ->distinct()
@@ -237,6 +229,39 @@ class EventController extends Controller
             ->filter()
             ->take(8);
 
-        return view('welcome', compact('featuredEvents', 'freeEvents', 'paidEvents', 'categories'));
+        return view('welcome', compact('latestEvents', 'allEvents', 'categories'));
+    }
+
+    /**
+     * Load more events for home page (AJAX endpoint)
+     */
+    public function loadMoreEvents(Request $request)
+    {
+        $page = $request->get('page', 1);
+
+        $events = Event::approved()
+            ->upcoming()
+            ->with('organizer')
+            ->orderBy('start_date')
+            ->paginate(6, ['*'], 'page', $page); // Load 6 more events per request
+
+        if ($events->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No more events available'
+            ]);
+        }
+
+        $eventsHtml = '';
+        foreach ($events as $event) {
+            $eventsHtml .= view('partials.event-card', compact('event'))->render();
+        }
+
+        return response()->json([
+            'success' => true,
+            'html' => $eventsHtml,
+            'hasMore' => $events->hasMorePages(),
+            'nextPage' => $events->currentPage() + 1
+        ]);
     }
 }
