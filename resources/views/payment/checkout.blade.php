@@ -1,10 +1,7 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Payment Checkout') }}
-        </h2>
-    </x-slot>
-
+@extends('layouts.dashbord')
+@section('content')
+<div class="flex h-screen bg-gray-100">
+    <x-dashboard-sidebar role="client" :current-route="request()->route()->getName()" />
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -132,6 +129,7 @@
             </div>
         </div>
     </div>
+    </div>
 
     <!-- Stripe JavaScript -->
     <script src="https://js.stripe.com/v3/"></script>
@@ -243,4 +241,4 @@
             }
         });
     </script>
-</x-app-layout>
+@endsection

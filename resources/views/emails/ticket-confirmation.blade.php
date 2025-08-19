@@ -1,254 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Confirmation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #3b82f6;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            color: #3b82f6;
-            margin: 0;
-            font-size: 28px;
-        }
-        .ticket-info {
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #3b82f6;
-        }
-        .event-details {
-            background-color: #eff6ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .ticket-code {
-            background-color: #1f2937;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin: 20px 0;
-        }
-        .important-info {
-            background-color: #fef3c7;
-            border: 1px solid #f59e0b;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            color: #6b7280;
-            font-size: 14px;
-        }
-        .button {
-            display: inline-block;
-            background-color: #3b82f6;
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        .detail-item {
-            padding: 10px;
-            background-color: white;
-            border-radius: 6px;
-            border: 1px solid #e5e7eb;
-        }
-        .detail-label {
-            font-weight: bold;
-            color: #374151;
-            font-size: 14px;
-        }
-        .detail-value {
-            color: #1f2937;
-            margin-top: 5px;
-        }
-        @media (max-width: 600px) {
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Confirmation</title>
 </head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🎫 Ticket Confirmation</h1>
-            <p>Your tickets are confirmed!</p>
-        </div>
+<body style="font-family: 'Arial', sans-serif; background-color: #111827; margin: 0; padding: 20px; color: #e5e7eb;">
 
-        <!-- Success Message -->
-        <div style="text-align: center; margin: 20px 0;">
-            <h2 style="color: #059669; margin: 0;">✅ Payment Successful</h2>
-            <p style="color: #6b7280; margin: 10px 0;">
-                Thank you for your purchase. Your tickets have been confirmed and are ready to use.
-            </p>
-        </div>
+  <div style="max-width: 650px; margin: auto; background-color: #1f2937; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.6); overflow: hidden;">
 
-        <!-- Ticket Code -->
-        <div class="ticket-code">
-            {{ $ticket->ticket_code }}
-        </div>
-        <p style="text-align: center; color: #6b7280; font-size: 14px;">
-            <strong>Important:</strong> Save this ticket code. You'll need it at the event entrance.
-        </p>
-
-        <!-- Event Information -->
-        <div class="event-details">
-            <h3 style="color: #1f2937; margin-top: 0;">📅 Event Details</h3>
-            
-            <div class="details-grid">
-                <div class="detail-item">
-                    <div class="detail-label">Event</div>
-                    <div class="detail-value">{{ $ticket->event->title }}</div>
-                </div>
-                
-                <div class="detail-item">
-                    <div class="detail-label">Date & Time</div>
-                    <div class="detail-value">{{ $ticket->event->start_date->format('F j, Y \a\t g:i A') }}</div>
-                </div>
-                
-                <div class="detail-item">
-                    <div class="detail-label">Location</div>
-                    <div class="detail-value">{{ $ticket->event->location }}</div>
-                </div>
-                
-                <div class="detail-item">
-                    <div class="detail-label">Address</div>
-                    <div class="detail-value">{{ $ticket->event->address ?? 'Address will be provided' }}</div>
-                </div>
-                
-                <div class="detail-item">
-                    <div class="detail-label">Organizer</div>
-                    <div class="detail-value">{{ $ticket->event->organizer->name }}</div>
-                </div>
-                
-                <div class="detail-item">
-                    <div class="detail-label">Category</div>
-                    <div class="detail-value">{{ $ticket->event->category }}</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Ticket Information -->
-        <div class="ticket-info">
-            <h3 style="color: #1f2937; margin-top: 0;">🎟️ Your Tickets</h3>
-            
-            <div class="details-grid">
-                <div class="detail-item">
-                    <div class="detail-label">Quantity</div>
-                    <div class="detail-value">{{ $ticket->quantity }} ticket(s)</div>
-                </div>
-                
-                @if($ticket->event->type === 'paid')
-                <div class="detail-item">
-                    <div class="detail-label">Total Paid</div>
-                    <div class="detail-value">
-                        @if($ticket->payment && $ticket->payment->total_amount)
-                            ${{ number_format($ticket->payment->total_amount, 2) }}
-                        @else
-                            ${{ number_format($ticket->total_price * 1.05, 2) }}
-                        @endif
-                    </div>
-                </div>
-                @else
-                <div class="detail-item">
-                    <div class="detail-label">Price</div>
-                    <div class="detail-value">FREE</div>
-                </div>
-                @endif
-                
-                <div class="detail-item">
-                    <div class="detail-label">Status</div>
-                    <div class="detail-value" style="color: #059669; font-weight: bold;">✅ CONFIRMED</div>
-                </div>
-                
-                <div class="detail-item">
-                    <div class="detail-label">Purchase Date</div>
-                    <div class="detail-value">{{ $ticket->created_at->format('F j, Y \a\t g:i A') }}</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Important Information -->
-        <div class="important-info">
-            <h4 style="margin-top: 0; color: #92400e;">⚠️ Important Information</h4>
-            <ul style="margin: 10px 0; padding-left: 20px;">
-                <li>Bring this email or save your ticket code: <strong>{{ $ticket->ticket_code }}</strong></li>
-                <li>Arrive at least 15 minutes before the event starts</li>
-                <li>Valid photo ID may be required for entry</li>
-                @if($ticket->event->terms_conditions)
-                <li>{{ $ticket->event->terms_conditions }}</li>
-                @endif
-            </ul>
-        </div>
-
-        <!-- Action Buttons -->
-        <div style="text-align: center; margin: 30px 0;">
-            <a href="{{ route('client.ticket-details', $ticket) }}" class="button">
-                🎫 View Ticket Details
-            </a>
-            <br>
-            <a href="{{ route('client.download-ticket', $ticket) }}" class="button" style="background-color: #059669; margin-top: 10px;">
-                📥 Download Ticket PDF
-            </a>
-            <br>
-            <a href="{{ route('events.show', $ticket->event) }}" class="button" style="background-color: #6b7280; margin-top: 10px;">
-                📋 View Event Details
-            </a>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p><strong>Event Management System</strong></p>
-            <p>
-                Need help? Contact us at 
-                <a href="mailto:support@eventmanagement.com" style="color: #3b82f6;">support@eventmanagement.com</a>
-            </p>
-            <p style="margin-top: 20px; font-size: 12px;">
-                This is an automated email. Please do not reply to this message.
-            </p>
-        </div>
+    <!-- Header -->
+    <div style="background: linear-gradient(90deg, #10b981, #3b82f6); text-align: center; padding: 25px;">
+      <h1 style="margin: 0; color: #ffffff; font-size: 28px;">🎫 My Guichet</h1>
+      <p style="margin: 8px 0 0; font-size: 16px; color: #d1fae5;">Votre ticket est confirmé ✅</p>
     </div>
+
+    <!-- Success -->
+    <div style="padding: 25px; text-align: center;">
+      <h2 style="color: #10b981; margin: 0;">Paiement Réussi</h2>
+      <p style="color: #9ca3af; margin: 10px 0;">
+        Merci pour votre achat ! Votre ticket est prêt à être utilisé.
+      </p>
+    </div>
+
+    <!-- Ticket Code -->
+    <div style="background: #111827; color: #10b981; padding: 18px; text-align: center; font-family: 'Courier New', monospace; font-size: 24px; font-weight: bold; letter-spacing: 2px; border: 1px solid #3b82f6; border-radius: 8px; margin: 20px;">
+      {{ $ticket->ticket_code }}
+    </div>
+    <p style="text-align: center; color: #9ca3af; font-size: 14px;">
+      <strong>Important :</strong> Gardez ce code, il est nécessaire pour accéder à l’événement.
+    </p>
+
+    <!-- Event Details -->
+    <div style="background: #111827; border: 1px solid #3b82f6; padding: 20px; margin: 20px; border-radius: 10px;">
+      <h3 style="margin: 0 0 15px; color: #3b82f6;">📅 Détails de l'Événement</h3>
+      <table style="width: 100%; border-collapse: collapse; color: #e5e7eb;">
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Événement</td>
+          <td>{{ $ticket->event->title }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Date & Heure</td>
+          <td>{{ $ticket->event->start_date->format('F j, Y \a\t g:i A') }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Lieu</td>
+          <td>{{ $ticket->event->location }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Adresse</td>
+          <td>{{ $ticket->event->address ?? 'Adresse communiquée ultérieurement' }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Organisateur</td>
+          <td>{{ $ticket->event->organizer->name }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Catégorie</td>
+          <td>{{ $ticket->event->category }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Ticket Info -->
+    <div style="background: #111827; border-left: 4px solid #10b981; padding: 20px; margin: 20px; border-radius: 10px;">
+      <h3 style="margin: 0 0 15px; color: #10b981;">🎟️ Vos Tickets</h3>
+      <table style="width: 100%; border-collapse: collapse; color: #e5e7eb;">
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Quantité</td>
+          <td>{{ $ticket->quantity }} ticket(s)</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Prix</td>
+          <td>
+            @if($ticket->event->type === 'paid')
+              @if($ticket->payment && $ticket->payment->total_amount)
+                ${{ number_format($ticket->payment->total_amount, 2) }}
+              @else
+                ${{ number_format($ticket->total_price * 1.05, 2) }}
+              @endif
+            @else
+              GRATUIT
+            @endif
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Statut</td>
+          <td style="color: #10b981; font-weight: bold;">✅ CONFIRMÉ</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Date d’Achat</td>
+          <td>{{ $ticket->created_at->format('F j, Y \a\t g:i A') }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Important Info -->
+    <div style="background: #1f2937; border: 1px solid #f59e0b; padding: 15px; margin: 20px; border-radius: 8px;">
+      <h4 style="margin: 0 0 10px; color: #fbbf24;">⚠️ Infos Importantes</h4>
+      <ul style="padding-left: 20px; margin: 0; color: #e5e7eb;">
+        <li>Présentez ce mail ou le code : <strong>{{ $ticket->ticket_code }}</strong></li>
+        <li>Arrivez 15 min avant le début</li>
+        <li>Une pièce d’identité peut être demandée</li>
+        @if($ticket->event->terms_conditions)
+          <li>{{ $ticket->event->terms_conditions }}</li>
+        @endif
+      </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="text-align: center; padding: 25px;">
+      <a href="{{ route('client.ticket-details', $ticket) }}" style="display: inline-block; background: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 5px;">🎫 Voir Ticket</a>
+      <a href="{{ route('client.download-ticket', $ticket) }}" style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 5px;">📥 Télécharger PDF</a>
+      <a href="{{ route('events.show', $ticket->event) }}" style="display: inline-block; background: #6b7280; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 5px;">📋 Détails Événement</a>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; padding: 20px; font-size: 13px; color: #9ca3af; border-top: 1px solid #374151;">
+      <p><strong>My Guichet</strong></p>
+      <p>Besoin d’aide ? <a href="mailto:support@eventmanagement.com" style="color: #3b82f6;">support@eventmanagement.com</a></p>
+      <p style="font-size: 12px; margin-top: 15px;">Ceci est un email automatique, merci de ne pas répondre.</p>
+    </div>
+  </div>
 </body>
 </html>

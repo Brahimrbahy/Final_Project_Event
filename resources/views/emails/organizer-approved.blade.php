@@ -1,222 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizer Account Approved</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #10b981;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            color: #10b981;
-            margin: 0;
-            font-size: 28px;
-        }
-        .celebration {
-            text-align: center;
-            font-size: 48px;
-            margin: 20px 0;
-        }
-        .welcome-message {
-            background-color: #f0fdf4;
-            border-left: 4px solid #10b981;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        .organizer-info {
-            background-color: #eff6ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .next-steps {
-            background-color: #fef3c7;
-            border: 1px solid #f59e0b;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .button {
-            display: inline-block;
-            background-color: #10b981;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            margin: 15px 0;
-            text-align: center;
-        }
-        .button:hover {
-            background-color: #059669;
-        }
-        .features-list {
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .features-list ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-        .features-list li {
-            margin: 8px 0;
-            color: #374151;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            color: #6b7280;
-            font-size: 14px;
-        }
-        .contact-info {
-            background-color: #f3f4f6;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        .highlight {
-            background-color: #fef3c7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizer Account Approved</title>
 </head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="celebration">🎉</div>
-            <h1>Congratulations!</h1>
-            <p>Your organizer account has been approved</p>
-        </div>
+<body style="font-family: Arial, sans-serif; background-color: #111827; margin: 0; padding: 20px; color: #e5e7eb;">
 
-        <!-- Welcome Message -->
-        <div class="welcome-message">
-            <h2 style="color: #059669; margin-top: 0;">Welcome to the Event Management Platform!</h2>
-            <p style="margin-bottom: 0;">
-                <strong>Hi {{ $organizer->name }},</strong><br>
-                Great news! Your organizer account has been reviewed and <span class="highlight">approved</span> by our admin team. 
-                You can now start creating and managing amazing events on our platform.
-            </p>
-        </div>
+  <div style="max-width: 650px; margin: auto; background-color: #1f2937; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.6); overflow: hidden;">
 
-        <!-- Organizer Information -->
-        <div class="organizer-info">
-            <h3 style="color: #1f2937; margin-top: 0;">📋 Your Account Details</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div>
-                    <strong>Name:</strong><br>
-                    {{ $organizer->name }}
-                </div>
-                <div>
-                    <strong>Email:</strong><br>
-                    {{ $organizer->email }}
-                </div>
-                @if($organizer->profile && $organizer->profile->company_name)
-                <div>
-                    <strong>Company:</strong><br>
-                    {{ $organizer->profile->company_name }}
-                </div>
-                @endif
-                @if($organizer->profile && $organizer->profile->contact_phone)
-                <div>
-                    <strong>Phone:</strong><br>
-                    {{ $organizer->profile->contact_phone }}
-                </div>
-                @endif
-            </div>
-        </div>
-
-        <!-- Call to Action -->
-        <div style="text-align: center; margin: 30px 0;">
-            <a href="{{ route('organizer.dashboard') }}" class="button">
-                🚀 Access Your Dashboard
-            </a>
-        </div>
-
-        <!-- What You Can Do Now -->
-        <div class="features-list">
-            <h3 style="color: #1f2937; margin-top: 0;">🎯 What You Can Do Now</h3>
-            <ul>
-                <li><strong>Create Events:</strong> Start planning your first event with our easy-to-use event creation tools</li>
-                <li><strong>Manage Bookings:</strong> Track ticket sales and manage attendee information</li>
-                <li><strong>Monitor Revenue:</strong> View detailed analytics and revenue reports for your events</li>
-                <li><strong>Upload Media:</strong> Add images and descriptions to make your events more attractive</li>
-                <li><strong>Set Pricing:</strong> Create both free and paid events with flexible pricing options</li>
-                <li><strong>Track Performance:</strong> Access insights about your events and audience engagement</li>
-            </ul>
-        </div>
-
-        <!-- Next Steps -->
-        <div class="next-steps">
-            <h3 style="color: #92400e; margin-top: 0;">📝 Next Steps</h3>
-            <ol style="margin: 0; padding-left: 20px;">
-                <li><strong>Complete Your Profile:</strong> Add more details about your company and services</li>
-                <li><strong>Create Your First Event:</strong> Use our event creation wizard to get started</li>
-                <li><strong>Review Guidelines:</strong> Familiarize yourself with our event policies and best practices</li>
-                <li><strong>Explore Features:</strong> Take a tour of your dashboard and available tools</li>
-            </ol>
-        </div>
-
-        <!-- Important Information -->
-        <div style="background-color: #dbeafe; border: 1px solid #3b82f6; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <h4 style="color: #1e40af; margin-top: 0;">ℹ️ Important Information</h4>
-            <ul style="margin: 0; padding-left: 20px; color: #1e3a8a;">
-                <li>All events require admin approval before going live</li>
-                <li>Platform fee: 15% of ticket sales (automatically calculated)</li>
-                <li>Payments are processed securely through Stripe</li>
-                <li>You'll receive 85% of ticket revenue after platform fees</li>
-            </ul>
-        </div>
-
-        <!-- Support Information -->
-        <div class="contact-info">
-            <h4 style="margin-top: 0; color: #374151;">Need Help Getting Started?</h4>
-            <p style="margin: 10px 0;">
-                Our support team is here to help you succeed. Don't hesitate to reach out if you have any questions.
-            </p>
-            <p style="margin: 0;">
-                📧 <a href="mailto:support@eventmanagement.com" style="color: #3b82f6;">support@eventmanagement.com</a><br>
-                📞 Support available Monday-Friday, 9 AM - 6 PM
-            </p>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p><strong>Event Management System</strong></p>
-            <p>
-                Thank you for choosing our platform to manage your events. We're excited to see what amazing experiences you'll create!
-            </p>
-            <p style="margin-top: 20px; font-size: 12px;">
-                This is an automated email. Please do not reply to this message.
-            </p>
-        </div>
+    <!-- Header -->
+    <div style="background: linear-gradient(90deg, #10b981, #3b82f6); text-align: center; padding: 30px;">
+      <div style="font-size: 48px;">🎉</div>
+      <h1 style="margin: 0; color: #ffffff; font-size: 26px;">Félicitations !</h1>
+      <p style="margin: 8px 0 0; font-size: 16px; color: #d1fae5;">Votre compte organisateur est approuvé</p>
     </div>
+
+    <!-- Welcome Message -->
+    <div style="background: #064e3b; border-left: 4px solid #10b981; padding: 20px; margin: 20px; border-radius: 8px;">
+      <h2 style="color: #10b981; margin-top: 0;">Bienvenue sur My Guichet !</h2>
+      <p style="margin-bottom: 0;">
+        <strong>Bonjour {{ $organizer->name }},</strong><br>
+        Bonne nouvelle 🎊 Votre compte organisateur a été <span style="background: #facc15; color: #1f2937; padding: 2px 6px; border-radius: 4px; font-weight: bold;">approuvé</span> par notre équipe.  
+        Vous pouvez maintenant créer et gérer vos événements !
+      </p>
+    </div>
+
+    <!-- Organizer Info -->
+    <div style="background: #111827; border: 1px solid #3b82f6; padding: 20px; margin: 20px; border-radius: 10px;">
+      <h3 style="margin: 0 0 15px; color: #3b82f6;">📋 Vos Informations</h3>
+      <table style="width: 100%; border-collapse: collapse; color: #e5e7eb;">
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Nom</td>
+          <td>{{ $organizer->name }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Email</td>
+          <td>{{ $organizer->email }}</td>
+        </tr>
+        @if($organizer->profile && $organizer->profile->company_name)
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Entreprise</td>
+          <td>{{ $organizer->profile->company_name }}</td>
+        </tr>
+        @endif
+        @if($organizer->profile && $organizer->profile->contact_phone)
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Téléphone</td>
+          <td>{{ $organizer->profile->contact_phone }}</td>
+        </tr>
+        @endif
+      </table>
+    </div>
+
+    <!-- Dashboard Button -->
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="{{ route('organizer.dashboard') }}" style="display: inline-block; background: #10b981; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">🚀 Accéder à mon Dashboard</a>
+    </div>
+
+    <!-- Features -->
+    <div style="background: #1f2937; border: 1px solid #374151; padding: 20px; margin: 20px; border-radius: 10px;">
+      <h3 style="margin: 0 0 15px; color: #3b82f6;">🎯 Ce que vous pouvez faire maintenant</h3>
+      <ul style="margin: 0; padding-left: 20px; color: #d1d5db;">
+        <li><strong>Créer des événements :</strong> Lancez votre premier événement</li>
+        <li><strong>Gérer les réservations :</strong> Suivez vos ventes et vos participants</li>
+        <li><strong>Analyser vos revenus :</strong> Accédez à des rapports détaillés</li>
+        <li><strong>Ajouter du contenu :</strong> Images, descriptions et plus</li>
+        <li><strong>Fixer vos prix :</strong> Créez des événements gratuits ou payants</li>
+        <li><strong>Suivre vos performances :</strong> Consultez vos statistiques</li>
+      </ul>
+    </div>
+
+    <!-- Next Steps -->
+    <div style="background: #1f2937; border: 1px solid #f59e0b; padding: 20px; margin: 20px; border-radius: 10px;">
+      <h3 style="margin: 0 0 10px; color: #facc15;">📝 Prochaines Étapes</h3>
+      <ol style="margin: 0; padding-left: 20px; color: #fef3c7;">
+        <li><strong>Complétez votre profil :</strong> Ajoutez plus d’infos</li>
+        <li><strong>Créez votre premier événement :</strong> Utilisez notre assistant</li>
+        <li><strong>Consultez nos règles :</strong> Familiarisez-vous avec nos guidelines</li>
+        <li><strong>Explorez vos outils :</strong> Prenez en main votre dashboard</li>
+      </ol>
+    </div>
+
+    <!-- Info -->
+    <div style="background: #1e3a8a; border: 1px solid #3b82f6; padding: 15px; margin: 20px; border-radius: 8px;">
+      <h4 style="color: #93c5fd; margin-top: 0;">ℹ️ Informations Importantes</h4>
+      <ul style="margin: 0; padding-left: 20px; color: #dbeafe;">
+        <li>Tous les événements nécessitent une validation</li>
+        <li>Frais de plateforme : 15% des ventes</li>
+        <li>Paiements sécurisés via Stripe</li>
+        <li>Vous recevez 85% de vos revenus</li>
+      </ul>
+    </div>
+
+    <!-- Support -->
+    <div style="background: #111827; border: 1px solid #374151; padding: 20px; margin: 20px; border-radius: 8px; text-align: center;">
+      <h4 style="margin-top: 0; color: #3b82f6;">Besoin d'aide ?</h4>
+      <p style="margin: 10px 0; color: #d1d5db;">
+        Notre équipe est disponible pour vous accompagner.  
+      </p>
+      <p style="margin: 0; color: #d1d5db;">
+        📧 <a href="mailto:support@eventmanagement.com" style="color: #10b981;">support@eventmanagement.com</a><br>
+        📞 Lundi-Vendredi, 9h - 18h
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; padding: 20px; font-size: 13px; color: #9ca3af; border-top: 1px solid #374151;">
+      <p><strong>My Guichet</strong></p>
+      <p>Merci d’avoir choisi notre plateforme. Nous avons hâte de voir vos événements 🎭</p>
+      <p style="font-size: 12px; margin-top: 15px;">Ceci est un email automatique, merci de ne pas répondre.</p>
+    </div>
+  </div>
 </body>
 </html>
