@@ -1,16 +1,9 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('My Events') }}
-            </h2>
-            <a href="{{ route('organizer.events.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
-                Create New Event
-            </a>
-        </div>
-    </x-slot>
+@extends('layouts.dashbord')
+@section('content')
+    <div class="flex h-screen bg-gray-100">
+            <x-dashboard-sidebar role="organizer" :current-route="request()->route()->getName()" />
 
-    <div class="py-12">
+        <div class="p-12 flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 lg:ml-0">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
@@ -167,4 +160,5 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>  
+@endsection

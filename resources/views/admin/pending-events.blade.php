@@ -1,5 +1,7 @@
-<x-app-layout>
-    <div class="flex h-screen bg-gray-100">
+@extends('layouts.dashbord')
+
+@section('content')
+<div class="flex h-screen bg-gray-100">
         <!-- Sidebar -->
         <x-dashboard-sidebar role="admin" :current-route="request()->route()->getName()" />
 
@@ -159,4 +161,4 @@
             alert('Organizer details modal would open here for organizer ID: ' + organizerId);
         }
     </script>
-</x-app-layout>
+@endsection

@@ -97,7 +97,7 @@
                     <!-- Submit Button -->
                     <div>
                         <button type="submit"
-                                class="w-full bg-white text-black font-medium py-3 px-4 rounded-xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900 transition duration-200">
+                                class="w-full bg-white rounded-[50px] text-black font-medium py-3 px-4 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900 transition duration-200">
                             Create Client Account
                         </button>
                     </div>
@@ -105,10 +105,10 @@
             </div>
 
             <!-- Footer Links -->
-            <div class="text-center space-y-4 mt-8">
+            <div class="text-center space-y-4 mt-4">
                 <p class="text-gray-400 mb-4">Already have an account?</p>
                 <a href="{{ route('login') }}"
-                   class="inline-block border-2 border-blue-500 text-blue-400 font-medium py-2 px-6 rounded-xl hover:bg-blue-500 hover:text-white transition duration-200 mb-4">
+                   class="inline-block border-2 rounded-[50px] border-blue-500 text-blue-400 font-medium py-2 px-6  hover:bg-blue-500 hover:text-white transition duration-200 mb-4">
                     Sign in here
                 </a>
 

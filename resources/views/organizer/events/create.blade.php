@@ -1,12 +1,10 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create New Event') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashbord')
+@section('content')
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="flex h-screen bg-gray-100">
+            <x-dashboard-sidebar role="organizer" :current-route="request()->route()->getName()" />
+
+        <div class="p-12 flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 lg:ml-0">
             <!-- Feature Overview -->
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6 mb-6">
                 <h3 class="text-lg font-medium text-blue-900 mb-3">Create Your Event - Full Feature Set</h3>
@@ -242,4 +240,4 @@
             document.getElementById('start_date').min = minDateTime;
         });
     </script>
-</x-app-layout>
+@endsection

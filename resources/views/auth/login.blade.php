@@ -44,7 +44,7 @@
                            autofocus
                            autocomplete="username"
                            placeholder="you@email.com"
-                           class="w-full px-4 py-3 bg-transparent border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200">
+                           class="w-full px-4 py-3 bg-transparent border rounded-[50px] border-gray-600  text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200">
                     @error('email')
                         <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                     @enderror
@@ -61,7 +61,7 @@
                            required
                            autocomplete="current-password"
                            placeholder="Password"
-                           class="w-full px-4 py-3 bg-transparent border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200">
+                           class="w-full px-4 py-3 rounded-[50px] bg-transparent border border-gray-600  text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200">
                     @error('password')
                         <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                     @enderror
@@ -79,7 +79,7 @@
 
                 <!-- Login Button -->
                 <button type="submit"
-                        class="w-full bg-white text-black font-medium py-3 px-4 rounded-xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900 transition duration-200">
+                        class="w-full bg-white text-black font-medium py-3 px-4 rounded-[50px] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900 transition duration-200">
                     Login
                 </button>
 
@@ -87,7 +87,7 @@
                 <div class="text-center mt-6">
                     <p class="text-gray-400 mb-4">Don't have an account?</p>
                     <a href="{{ route('register') }}"
-                       class="inline-block border-2 border-orange-500 text-orange-500 font-medium py-2 px-6 rounded-xl hover:bg-orange-500 hover:text-white transition duration-200">
+                       class="inline-block border-2 border-orange-500 text-orange-500 font-medium py-2 px-6 rounded-[50px] hover:bg-orange-500 hover:text-white transition duration-200">
                         Create an account
                     </a>
                 </div>

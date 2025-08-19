@@ -1,5 +1,7 @@
-<x-app-layout>
-    <div class="flex h-screen bg-gray-100">
+@extends('layouts.dashbord')
+
+@section('content')
+<div class="flex h-screen bg-gray-100">
         <!-- Sidebar -->
         <x-dashboard-sidebar role="admin" :current-route="request()->route()->getName()" />
 
@@ -17,85 +19,7 @@
                 </div>
             </div>
 
-            <!-- Monthly Revenue Chart -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-6">Monthly Revenue Breakdown</h3>
-                    
-                    @if($monthly_revenue->count() > 0)
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Month
-                                        </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Revenue
-                                        </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Transactions
-                                        </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Avg per Transaction
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach($monthly_revenue as $revenue)
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ DateTime::createFromFormat('!m', $revenue->month)->format('F') }} {{ $revenue->year }}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                <span class="text-lg font-semibold text-green-600">
-                                                    ${{ number_format($revenue->revenue, 2) }}
-                                                </span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ number_format($revenue->transactions) }}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                ${{ number_format($revenue->revenue / $revenue->transactions, 2) }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Simple Bar Chart Visualization -->
-                        <div class="mt-8">
-                            <h4 class="text-md font-medium text-gray-900 mb-4">Revenue Trend</h4>
-                            <div class="flex items-end space-x-2 h-64">
-                                @php
-                                    $maxRevenue = $monthly_revenue->max('revenue');
-                                @endphp
-                                @foreach($monthly_revenue->reverse() as $revenue)
-                                    @php
-                                        $height = $maxRevenue > 0 ? ($revenue->revenue / $maxRevenue) * 200 : 0;
-                                    @endphp
-                                    <div class="flex flex-col items-center">
-                                        <div class="bg-blue-500 rounded-t" 
-                                             style="height: {{ $height }}px; width: 40px;"
-                                             title="${{ number_format($revenue->revenue, 2) }}">
-                                        </div>
-                                        <div class="text-xs text-gray-500 mt-2 transform -rotate-45 origin-top-left">
-                                            {{ DateTime::createFromFormat('!m', $revenue->month)->format('M') }} {{ $revenue->year }}
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @else
-                        <div class="text-center py-8">
-                            <p class="text-gray-500">No revenue data available yet.</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            <!-- Top Performing Events -->
+           
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <h3 class="text-lg font-medium text-gray-900 mb-6">Top Revenue Generating Events</h3>
@@ -181,4 +105,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

@@ -1,11 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Pending Approval') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashbord')
+@section('content')
 
-    <div class="py-12">
+    <div class="flex h-screen bg-gray-100">
+            <x-dashboard-sidebar role="organizer" :current-route="request()->route()->getName()" />
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
@@ -299,4 +296,4 @@
             checkApprovalStatus();
         }, 2000);
     </script>
-</x-app-layout>
+@endsection

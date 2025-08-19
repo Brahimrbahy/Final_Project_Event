@@ -156,9 +156,9 @@
                             </form>
                         @else
                             <a href="{{ route('login') }}"
-                                class="text-white hover:text-blue-400 px-4 py-2 text-sm font-medium transition-colors border border-slate-600 rounded-lg hover:border-blue-400">Login</a>
+                                class="text-[#48ff91]  px-4 py-2 text-sm font-medium transition-colors border rounded-[50px] border-[#48ff91]  hover:border-[#052cff] hover:text-[#052cff]">Login</a>
                             <a href="{{ route('register.client') }}"
-                                class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">Register</a>
+                                class="bg-[#052cff] text-white px-4 py-2  text-sm rounded-[50px] font-medium hover:bg-[#48ff91] transition-colors">Register</a>
                         @endauth
 
                         <!-- Mobile menu button -->
@@ -186,7 +186,7 @@
                             <!-- Category Filter Dropdown -->
                             <div class="relative">
                                 <select name="category"
-                                    class="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    class="bg-slate-700 text-white border border-[#48ff91] rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-[#48ff91] focus:outline-none">
                                     <option value="">Toutes catégories</option>
                                     <option value="Concerts"
                                         {{ request('category') === 'Concerts' ? 'selected' : '' }}> Concerts</option>
@@ -220,7 +220,7 @@
                             <!-- Search Input -->
                             <div class="relative flex-1">
                                 <input type="text" name="search" placeholder="Cherchez ce que vous voulez"
-                                    class="w-full pl-4 pr-12 py-3 bg-slate-700 text-white placeholder-gray-300 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                                    class="w-full pl-4 pr-12 py-3 bg-slate-700 text-white placeholder-gray-300 border border-[#48ff91] rounded-lg focus:ring-2 focus:ring-[#48ff91] focus:outline-none text-sm"
                                     value="{{ request('search') }}">
                                 <button type="submit" class="absolute inset-y-0 right-0 pr-4 flex items-center">
                                     <svg class="w-5 h-5 text-gray-300 hover:text-white" fill="none"
@@ -241,66 +241,138 @@
             <div class="max-w-full px-6">
                 <div class="flex items-center justify-center space-x-6 h-14 overflow-x-auto">
                     <a href="{{ route('events.index', ['category' => 'Concerts']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Concerts' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-music-note-beamed" viewBox="0 0 16 16">
-  <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13s1.12-2 2.5-2 2.5.896 2.5 2m9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2"/>
-  <path fill-rule="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z"/>
-  <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4z"/>
-</svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Concerts' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-music-note-beamed" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13s1.12-2 2.5-2 2.5.896 2.5 2m9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2" />
+                                <path fill-rule="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z" />
+                                <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4z" />
+                            </svg>
+                        </span>
                         <span>Concerts</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Festivals']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Festivals' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M80-80q29-74 38.5-152.5T130-390q-39-15-64.5-50T40-520v-80q115-38 234.5-116T480-880q86 86 205.5 164T920-600v80q0 45-25.5 80T830-390q2 79 11.5 157.5T880-80H80Zm156-520h488q-78-44-140.5-90.5T480-772q-41 35-103.5 81.5T236-600Zm344 140q25 0 42.5-17.5T640-520H520q0 25 17.5 42.5T580-460Zm-200 0q25 0 42.5-17.5T440-520H320q0 25 17.5 42.5T380-460Zm-200 0q25 0 42.5-17.5T240-520H120q0 25 17.5 42.5T180-460Zm6 300h107q9-60 14-119t8-119q-9-5-18-10.5T280-422q-15 15-32.5 24.5T210-383q-2 57-7 112.5T186-160Zm188 0h212q-8-55-12.5-110T566-381q-26-2-47.5-12.5T480-421q-17 17-39.5 27.5T394-381q-3 56-7.5 111T374-160Zm293 0h107q-12-55-17-110.5T750-383q-20-5-38-14.5T680-422q-8 8-17 13.5T645-398q3 60 8.5 119T667-160Zm113-300q25 0 42.5-17.5T840-520H720q0 25 17.5 42.5T780-460Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Festivals' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M80-80q29-74 38.5-152.5T130-390q-39-15-64.5-50T40-520v-80q115-38 234.5-116T480-880q86 86 205.5 164T920-600v80q0 45-25.5 80T830-390q2 79 11.5 157.5T880-80H80Zm156-520h488q-78-44-140.5-90.5T480-772q-41 35-103.5 81.5T236-600Zm344 140q25 0 42.5-17.5T640-520H520q0 25 17.5 42.5T580-460Zm-200 0q25 0 42.5-17.5T440-520H320q0 25 17.5 42.5T380-460Zm-200 0q25 0 42.5-17.5T240-520H120q0 25 17.5 42.5T180-460Zm6 300h107q9-60 14-119t8-119q-9-5-18-10.5T280-422q-15 15-32.5 24.5T210-383q-2 57-7 112.5T186-160Zm188 0h212q-8-55-12.5-110T566-381q-26-2-47.5-12.5T480-421q-17 17-39.5 27.5T394-381q-3 56-7.5 111T374-160Zm293 0h107q-12-55-17-110.5T750-383q-20-5-38-14.5T680-422q-8 8-17 13.5T645-398q3 60 8.5 119T667-160Zm113-300q25 0 42.5-17.5T840-520H720q0 25 17.5 42.5T780-460Z" />
+                            </svg>
+                        </span>
                         <span>Festivals</span>
                     </a>
                     <a href="{{ route('events.index', ['category' => 'Theatre']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Theatre' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M760-660q17 0 28.5-11.5T800-700q0-17-11.5-28.5T760-740q-17 0-28.5 11.5T720-700q0 17 11.5 28.5T760-660Zm-160 0q17 0 28.5-11.5T640-700q0-17-11.5-28.5T600-740q-17 0-28.5 11.5T560-700q0 17 11.5 28.5T600-660Zm-20 136h200q0-35-30.5-55.5T680-600q-39 0-69.5 20.5T580-524ZM280-80q-100 0-170-70T40-320v-280h480v280q0 100-70 170T280-80Zm0-80q66 0 113-47t47-113v-200H120v200q0 66 47 113t113 47Zm400-200q-26 0-51.5-5.5T580-382v-94q22 17 47.5 26.5T680-440q66 0 113-47t47-113v-200H520v140h-80v-220h480v280q0 100-70 170t-170 70Zm-480-20q17 0 28.5-11.5T240-420q0-17-11.5-28.5T200-460q-17 0-28.5 11.5T160-420q0 17 11.5 28.5T200-380Zm160 0q17 0 28.5-11.5T400-420q0-17-11.5-28.5T360-460q-17 0-28.5 11.5T320-420q0 17 11.5 28.5T360-380Zm-80 136q39 0 69.5-20.5T380-320H180q0 35 30.5 55.5T280-244Zm0-96Zm400-280Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Theatre' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M760-660q17 0 28.5-11.5T800-700q0-17-11.5-28.5T760-740q-17 0-28.5 11.5T720-700q0 17 11.5 28.5T760-660Zm-160 0q17 0 28.5-11.5T640-700q0-17-11.5-28.5T600-740q-17 0-28.5 11.5T560-700q0 17 11.5 28.5T600-660Zm-20 136h200q0-35-30.5-55.5T680-600q-39 0-69.5 20.5T580-524ZM280-80q-100 0-170-70T40-320v-280h480v280q0 100-70 170T280-80Zm0-80q66 0 113-47t47-113v-200H120v200q0 66 47 113t113 47Zm400-200q-26 0-51.5-5.5T580-382v-94q22 17 47.5 26.5T680-440q66 0 113-47t47-113v-200H520v140h-80v-220h480v280q0 100-70 170t-170 70Zm-480-20q17 0 28.5-11.5T240-420q0-17-11.5-28.5T200-460q-17 0-28.5 11.5T160-420q0 17 11.5 28.5T200-380Zm160 0q17 0 28.5-11.5T400-420q0-17-11.5-28.5T360-460q-17 0-28.5 11.5T320-420q0 17 11.5 28.5T360-380Zm-80 136q39 0 69.5-20.5T380-320H180q0 35 30.5 55.5T280-244Zm0-96Zm400-280Z" />
+                            </svg>
+                        </span>
                         <span>Théâtre</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Sports']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Sports' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M162-520h114q-6-38-23-71t-43-59q-18 29-30.5 61.5T162-520Zm522 0h114q-5-36-17.5-68.5T750-650q-26 26-43 59t-23 71ZM210-310q26-26 43-59t23-71H162q5 36 17.5 68.5T210-310Zm540 0q18-29 30.5-61.5T798-440H684q6 38 23 71t43 59ZM358-520h82v-278q-53 8-98.5 29.5T260-712q39 38 64.5 86.5T358-520Zm162 0h82q8-57 33.5-105.5T700-712q-36-35-81.5-56.5T520-798v278Zm-80 358v-278h-82q-8 57-33.5 105.5T260-248q36 35 81.5 56.5T440-162Zm80 0q53-8 98.5-29.5T700-248q-39-38-64.5-86.5T602-440h-82v278Zm-40-318Zm0 400q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Sports' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M162-520h114q-6-38-23-71t-43-59q-18 29-30.5 61.5T162-520Zm522 0h114q-5-36-17.5-68.5T750-650q-26 26-43 59t-23 71ZM210-310q26-26 43-59t23-71H162q5 36 17.5 68.5T210-310Zm540 0q18-29 30.5-61.5T798-440H684q6 38 23 71t43 59ZM358-520h82v-278q-53 8-98.5 29.5T260-712q39 38 64.5 86.5T358-520Zm162 0h82q8-57 33.5-105.5T700-712q-36-35-81.5-56.5T520-798v278Zm-80 358v-278h-82q-8 57-33.5 105.5T260-248q36 35 81.5 56.5T440-162Zm80 0q53-8 98.5-29.5T700-248q-39-38-64.5-86.5T602-440h-82v278Zm-40-318Zm0 400q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                            </svg>
+                        </span>
                         <span>Sports</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Cinema']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Cinema' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="m160-800 80 160h120l-80-160h80l80 160h120l-80-160h80l80 160h120l-80-160h120q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800Zm0 240v320h640v-320H160Zm0 0v320-320Z"/></svg></span>
-                        <span>Cinéma</span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Cinema' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="m160-800 80 160h120l-80-160h80l80 160h120l-80-160h80l80 160h120l-80-160h120q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800Zm0 240v320h640v-320H160Zm0 0v320-320Z" />
+                            </svg>
+                        </span>
+                        <span>Cinema</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Business']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Business' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm240-600h160v-80H400v80Zm400 360H600v80H360v-80H160v160h640v-160Zm-360 0h80v-80h-80v80Zm-280-80h200v-80h240v80h200v-200H160v200Zm320 40Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Business' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm240-600h160v-80H400v80Zm400 360H600v80H360v-80H160v160h640v-160Zm-360 0h80v-80h-80v80Zm-280-80h200v-80h240v80h200v-200H160v200Zm320 40Z" />
+                            </svg>
+                        </span>
                         <span>Business</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Technology']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Technology' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M40-120v-80h880v80H40Zm120-120q-33 0-56.5-23.5T80-320v-440q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v440q0 33-23.5 56.5T800-240H160Zm0-80h640v-440H160v440Zm0 0v-440 440Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Technology' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M40-120v-80h880v80H40Zm120-120q-33 0-56.5-23.5T80-320v-440q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v440q0 33-23.5 56.5T800-240H160Zm0-80h640v-440H160v440Zm0 0v-440 440Z" />
+                            </svg>
+                        </span>
                         <span>Technology</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Arts & Culture']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Arts & Culture' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-brush" viewBox="0 0 16 16">
-  <path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.1 6.1 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.1 8.1 0 0 1-3.078.132 4 4 0 0 1-.562-.135 1.4 1.4 0 0 1-.466-.247.7.7 0 0 1-.204-.288.62.62 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896q.19.012.348.048c.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04M4.705 11.912a1.2 1.2 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.4 3.4 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3 3 0 0 0 .126-.75zm1.44.026c.12-.04.277-.1.458-.183a5.1 5.1 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005zm3.582-3.043.002.001h-.002z"/>
-</svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Arts & Culture' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-brush" viewBox="0 0 16 16">
+                                <path
+                                    d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.1 6.1 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.1 8.1 0 0 1-3.078.132 4 4 0 0 1-.562-.135 1.4 1.4 0 0 1-.466-.247.7.7 0 0 1-.204-.288.62.62 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896q.19.012.348.048c.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04M4.705 11.912a1.2 1.2 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.4 3.4 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3 3 0 0 0 .126-.75zm1.44.026c.12-.04.277-.1.458-.183a5.1 5.1 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005zm3.582-3.043.002.001h-.002z" />
+                            </svg>
+                        </span>
                         <span>Arts & Culture</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Education']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Education' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M300-80q-58 0-99-41t-41-99v-520q0-58 41-99t99-41h500v600q-25 0-42.5 17.5T740-220q0 25 17.5 42.5T800-160v80H300Zm-60-267q14-7 29-10t31-3h20v-440h-20q-25 0-42.5 17.5T240-740v393Zm160-13h320v-440H400v440Zm-160 13v-453 453Zm60 187h373q-6-14-9.5-28.5T660-220q0-16 3-31t10-29H300q-26 0-43 17.5T240-220q0 26 17 43t43 17Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Education' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M300-80q-58 0-99-41t-41-99v-520q0-58 41-99t99-41h500v600q-25 0-42.5 17.5T740-220q0 25 17.5 42.5T800-160v80H300Zm-60-267q14-7 29-10t31-3h20v-440h-20q-25 0-42.5 17.5T240-740v393Zm160-13h320v-440H400v440Zm-160 13v-453 453Zm60 187h373q-6-14-9.5-28.5T660-220q0-16 3-31t10-29H300q-26 0-43 17.5T240-220q0 26 17 43t43 17Z" />
+                            </svg>
+                        </span>
                         <span>Education</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Food & Drink']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Food & Drink' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M400-240h40v-160q25 0 42.5-17.5T500-460v-120h-40v120h-20v-120h-40v120h-20v-120h-40v120q0 25 17.5 42.5T400-400v160Zm160 0h40v-340q-33 0-56.5 23.5T520-500v120h40v140ZM160-120v-480l320-240 320 240v480H160Zm80-80h480v-360L480-740 240-560v360Zm240-270Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Food & Drink' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M400-240h40v-160q25 0 42.5-17.5T500-460v-120h-40v120h-20v-120h-40v120h-20v-120h-40v120q0 25 17.5 42.5T400-400v160Zm160 0h40v-340q-33 0-56.5 23.5T520-500v120h40v140ZM160-120v-480l320-240 320 240v480H160Zm80-80h480v-360L480-740 240-560v360Zm240-270Z" />
+                            </svg>
+                        </span>
                         <span>Food & Drink</span>
                     </a>
+
                     <a href="{{ route('events.index', ['category' => 'Health & Wellness']) }}"
-                        class="flex items-center space-x-2 text-white hover:text-blue-400 text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Health & Wellness' ? 'text-blue-400' : '' }}">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 -960 960 960" fill="white"><path d="M320-120v-200H120v-320h200v-200h320v200h200v320H640v200H320Zm80-80h160v-200h200v-160H560v-200H400v200H200v160h200v200Zm80-280Z"/></svg></span>
+                        class="flex items-center space-x-2 text-white hover:text-[#48ff91] text-sm font-medium whitespace-nowrap transition-colors {{ request('category') === 'Health & Wellness' ? 'text-[#48ff91]' : '' }}">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+                                viewBox="0 -960 960 960" fill="currentColor">
+                                <path
+                                    d="M320-120v-200H120v-320h200v-200h320v200h200v320H640v200H320Zm80-80h160v-200h200v-160H560v-200H400v200H200v160h200v200Zm80-280Z" />
+                            </svg>
+                        </span>
                         <span>Health & Wellness</span>
                     </a>
+
                 </div>
             </div>
         </div>
@@ -311,7 +383,7 @@
                 <!-- Mobile Search with Category -->
                 <form action="{{ route('events.index') }}" method="GET" class="mb-3 space-y-3">
                     <select name="category"
-                        class="w-full bg-slate-700 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+                        class="w-full bg-slate-700 text-white border border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#48ff91]">
                         <option value="">Toutes catégories</option>
                         <option value="Concerts" {{ request('category') === 'Concerts' ? 'selected' : '' }}>🎵
                             Concerts</option>
@@ -367,9 +439,9 @@
                     </form>
                 @else
                     <a href="{{ route('login') }}"
-                        class="block px-3 py-2 text-white hover:text-blue-400 hover:bg-slate-700 rounded-lg">Login</a>
+                        class="block px-3 py-2 text-white  hover:text-blue-400 hover:bg-slate-700 rounded-[50px]">Login</a>
                     <a href="{{ route('register.client') }}"
-                        class="block px-3 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700">Register</a>
+                        class="block px-3 py-2 bg-blue-600 text-white rounded-[50px] text-center hover:bg-blue-700">Register</a>
                 @endauth
             </div>
         </div>
@@ -383,65 +455,74 @@
         <!-- Latest Events Image Carousel Section -->
         @if ($latestEvents->count() > 0)
             <section class="py-16 bg-[#1a2332]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-white mb-4">Derniers Événements</h2>
-            <p class="text-gray-300 text-lg">Découvrez les événements les plus récents</p>
-        </div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl font-bold text-white mb-4">Derniers Événements</h2>
+                        <p class="text-gray-300 text-lg">Découvrez les événements les plus récents</p>
+                    </div>
 
-        <!-- Image Carousel -->
-        <div class="relative">
-            <div class="overflow-hidden rounded-2xl">
-                <div id="latest-events-carousel" class="flex transition-transform duration-500 ease-in-out">
-                    @foreach($latestEvents as $index => $event)
-                        <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 flex-shrink-0 px-3">
-                            <div class="relative group cursor-pointer h-80 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300" onclick="window.location.href='{{ route('events.show', $event) }}'">
-                                @if($event->image_path)
-                                    <img src="{{ Storage::url($event->image_path) }}"
-                                         alt="{{ $event->title }}"
-                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                @else
-                                    <div class="w-full h-full bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center transition-transform duration-500 group-hover:scale-110"></div>
-                                @endif
+                    <!-- Image Carousel -->
+                    <div class="relative">
+                        <div class="overflow-hidden rounded-2xl">
+                            <div id="latest-events-carousel"
+                                class="flex transition-transform duration-500 ease-in-out">
+                                @foreach ($latestEvents as $index => $event)
+                                    <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 flex-shrink-0 px-3 ">
+                                        <div class="relative group cursor-pointer border border-[#48ff91] h-80 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                                            onclick="window.location.href='{{ route('events.show', $event) }}'">
+                                            @if ($event->image_path)
+                                                <img src="{{ Storage::url($event->image_path) }}"
+                                                    alt="{{ $event->title }}"
+                                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                            @else
+                                                <div
+                                                    class="w-full h-full bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                                                </div>
+                                            @endif
 
-                                <!-- Event Detail Overlay -->
-                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-80 transition-all duration-300 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100">
-                                    <h3 class="text-white font-bold text-xl mb-2">{{ $event->title }}</h3>
-                                    <p class="text-gray-200 text-sm mb-2">{{ $event->description }}</p>
-                                    <div class="flex items-center text-sm text-gray-200 mb-1">
-                                        <span>Date: {{ $event->start_date->format('d M Y') }}</span>
-                                    </div>
-                                    <div class="flex items-center text-sm text-gray-200 mb-1">
-                                        <span>Lieu: {{ $event->location }}</span>
-                                    </div>
-                                    <div class="text-sm text-gray-200">
-                                        @if($event->type === 'free')
-                                            <span class="inline-block bg-green-500 text-white px-3 py-1 rounded-full font-semibold">Gratuit</span>
-                                        @else
-                                            <span class="inline-block bg-blue-500 text-white px-3 py-1 rounded-full font-semibold">${{ number_format($event->price, 2) }}</span>
-                                        @endif
-                                    </div>
-                                </div>
+                                            <!-- Event Detail Overlay -->
+                                            <div
+                                                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-80 transition-all duration-300 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100">
+                                                <h3 class="text-white font-bold text-xl mb-2">{{ $event->title }}</h3>
+                                                <p class="text-gray-200 text-sm mb-2">{{ $event->description }}</p>
+                                                <div class="flex items-center text-sm text-gray-200 mb-1">
+                                                    <span>Date: {{ $event->start_date->format('d M Y') }}</span>
+                                                </div>
+                                                <div class="flex items-center text-sm text-gray-200 mb-1">
+                                                    <span>Lieu: {{ $event->location }}</span>
+                                                </div>
+                                                <div class="text-sm text-gray-200">
+                                                    @if ($event->type === 'free')
+                                                        <span
+                                                            class="inline-block bg-green-500 text-white px-3 py-1 rounded-full font-semibold">Gratuit</span>
+                                                    @else
+                                                        <span
+                                                            class="inline-block bg-blue-500 text-white px-3 py-1 rounded-full font-semibold">${{ number_format($event->price, 2) }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
 
-                                <!-- Category Badge -->
-                                <div class="absolute top-4 right-4">
-                                    <span class="bg-white bg-opacity-90 text-gray-800 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">{{ $event->category }}</span>
-                                </div>
+                                            <!-- Category Badge -->
+                                            <div class="absolute top-4 right-4">
+                                                <span
+                                                    class="bg-white bg-opacity-90 text-gray-800 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">{{ $event->category }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
+                    </div>
 
-        <!-- View All Events Button -->
-        <div class="text-center mt-12">
-            <a href="{{ route('events.index') }}" class="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105">
-                <span>Voir tous les événements</span>
-            </a>
-        </div>
-    </div>
-</section>
+                    <!-- View All Events Button -->
+                    <div class="text-center mt-12">
+                        <a href="{{ route('events.index') }}"
+                            class="inline-flex items-center px-8 py-4 bg-[#052cff] hover:bg-[#48ff91] rounded-[50px] hover:text-[#052cff] text-white font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            <span>Voir tous les événements</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
 
 
         @endif
@@ -466,12 +547,8 @@
                     @if ($allEvents->hasMorePages())
                         <div class="text-center">
                             <button id="load-more-btn" data-next-page="{{ $allEvents->currentPage() + 1 }}"
-                                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center space-x-2">
+                                class="bg-[#052cff] hover:bg-[#48ff91] hover:text-[#052cff] text-white px-8 py-3 rounded-[50px] font-medium transition-colors inline-flex items-center space-x-2">
                                 <span>Charger Plus d'Événements</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7"></path>
-                                </svg>
                             </button>
 
                             <!-- Loading Spinner (hidden by default) -->
@@ -546,39 +623,31 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Company Info -->
                 <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div
-                            class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-xl">E</span>
-                        </div>
-                        <span class="text-xl font-bold">EventHub</span>
-                    </div>
-                    <p class="text-gray-300 mb-4 max-w-md">
-                        The ultimate platform for discovering and creating amazing events.
-                        Connect with your community through unforgettable experiences.
+                    <h3 class="text-2xl font-bold mb-4">
+                        <span class="text-red-500">G</span><span class="text-yellow-400">u</span><span class="text-green-500">i</span><span class="text-blue-500">c</span><span class="text-white">het</span>
+                    </h3>
+                    <p class="text-gray-300 mb-4">
+                        Votre plateforme de billetterie de confiance pour découvrir et réserver des événements exceptionnels.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z" />
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z" />
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
                             </svg>
                         </a>
                     </div>
@@ -586,40 +655,29 @@
 
                 <!-- Quick Links -->
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <h4 class="text-lg font-semibold mb-4">Liens Rapides</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('events.index') }}"
-                                class="text-gray-300 hover:text-white transition duration-200">Browse Events</a></li>
-                        <li><a href="{{ route('register') }}"
-                                class="text-gray-300 hover:text-white transition duration-200">Create Account</a></li>
-                        <li><a href="#become-organizer"
-                                class="text-gray-300 hover:text-white transition duration-200">Become Organizer</a>
-                        </li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-200">Help
-                                Center</a></li>
+                        <li><a href="{{ route('welcome') }}" class="text-gray-300 hover:text-white transition-colors">Accueil</a></li>
+                        <li><a href="{{ route('events.index') }}" class="text-gray-300 hover:text-white transition-colors">Événements</a></li>
+                        <li><a href="{{ route('register.organizer') }}" class="text-gray-300 hover:text-white transition-colors">Devenir Organisateur</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">À Propos</a></li>
                     </ul>
                 </div>
 
                 <!-- Support -->
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-200">Contact
-                                Us</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-200">Privacy
-                                Policy</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-200">Terms of
-                                Service</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-200">FAQ</a>
-                        </li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Centre d'Aide</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Conditions d'Utilisation</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Politique de Confidentialité</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-                <p class="text-gray-400">
-                    © {{ date('Y') }} EventHub. All rights reserved. Made with ❤️ for amazing events.
-                </p>
+            <div class="border-t border-slate-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; {{ date('Y') }} Guichet. Tous droits réservés.</p>
             </div>
         </div>
     </footer>

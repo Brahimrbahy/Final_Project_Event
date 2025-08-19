@@ -1,5 +1,5 @@
 <!-- Event Card for Home Page with iOS Glassmorphism Style -->
-<div class="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl overflow-hidden shadow-2xl hover:shadow-[0_32px_64px_rgba(0,0,0,0.3)] hover:bg-white/15 transition-all duration-500 transform hover:-translate-y-2 event-card relative before:absolute before:inset-0 before:rounded-2xl before:p-px before:bg-gradient-to-b before:from-white/20 before:to-transparent before:mask-composite-[subtract] before:mask-[linear-gradient(#fff_0_0)] group">
+<div class="backdrop-blur-xl  bg-white/10 border border-[#48ff91] rounded-2xl overflow-hidden shadow-2xl hover:shadow-[0_32px_64px_rgba(0,0,0,0.3)] hover:bg-white/15 transition-all duration-500 transform hover:-translate-y-2 event-card relative before:absolute before:inset-0 before:rounded-2xl before:p-px before:bg-gradient-to-b before:from-white/20 before:to-transparent before:mask-composite-[subtract] before:mask-[linear-gradient(#fff_0_0)] group">
     <!-- Event Image -->
     <div class="relative">
         @if($event->image_path)
@@ -35,7 +35,7 @@
         @if($event->max_tickets && $event->tickets_sold >= $event->max_tickets)
             <div class="absolute inset-0 backdrop-blur-sm bg-black/40 flex items-center justify-center">
                 <span class="bg-red-500/90 backdrop-blur-md text-white px-6 py-3 rounded-2xl font-bold text-lg border border-red-400/30 shadow-2xl">
-                    COMPLET
+                    Sold Out
                 </span>
             </div>
         @endif
@@ -100,7 +100,7 @@
             <!-- Action Button -->
             <div class="flex items-center justify-between">
                 <a href="{{ route('events.show', $event) }}" 
-                   class="backdrop-blur-md bg-blue-500/80 hover:bg-blue-400/90 text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center space-x-2 border border-blue-400/30 shadow-lg hover:shadow-xl hover:scale-105 group-hover:bg-blue-400/80">
+                   class="backdrop-blur-md bg-[#052cff]/80 hover:bg-[#48ff91] text-white px-6 py-2.5 rounded-[50px] text-sm font-semibold transition-all duration-300 flex items-center space-x-2 border border-blue-400/30 shadow-lg hover:shadow-xl hover:scale-105 group-hover:bg-blue-400/80">
                     <span>Voir Détails</span>
                     <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>

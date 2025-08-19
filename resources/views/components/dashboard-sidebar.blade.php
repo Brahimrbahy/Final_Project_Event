@@ -44,38 +44,38 @@
                 </svg>
                 Dashboard
             </a>
-
-            <a href="{{ route('events.index') }}"
-               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'events.index') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
+             <a href="{{ route('admin.organizers') }}"
+               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.organizers') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2z"></path>
+                </svg>
+                Organizers
+            </a>
+            <a href="{{ route('admin.events') }}"
+               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.events') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2z"></path>
                 </svg>
                 Events
             </a>
 
-            <a href="{{ route('admin.organizers') }}"
-               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.organizers') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
+            <a href="{{ route('admin.pending-events') }}"
+               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.pending-events') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                 </svg>
-                My Events
+                Pending Events
             </a>
 
-            <a href="{{ route('admin.events') }}"
-               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.events') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
+            <a href="{{ route('admin.pending-organizers') }}"
+               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.pending-organizers') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m0 0h2m-2 0v4a2 2 0 002 2h2a2 2 0 002-2v-4m0 0V9a2 2 0 00-2-2H9z"></path>
                 </svg>
-                My Applications
+                Pending organizers
             </a>
 
-            <a href="{{ route('admin.revenue') }}"
-               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.revenue') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
-                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-                Bookings
-            </a>
+            
 
             <a href="{{ route('admin.revenue') }}"
                class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'admin.revenue') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
@@ -95,13 +95,7 @@
                 Dashboard
             </a>
 
-            <a href="{{ route('events.index') }}"
-               class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'events.index') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">
-                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2z"></path>
-                </svg>
-                Events
-            </a>
+           
 
             <a href="{{ route('organizer.events') }}"
                class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ str_contains($currentRoute, 'organizer.events') && !str_contains($currentRoute, 'create') ? 'bg-yellow-100 text-yellow-800 border-r-2 border-yellow-400' : 'text-gray-700 hover:bg-gray-100' }}">

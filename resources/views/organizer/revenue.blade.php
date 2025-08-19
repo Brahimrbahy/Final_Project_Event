@@ -1,11 +1,9 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Revenue Reports') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashbord')
+@section('content')
+    <div class="flex h-screen bg-gray-100">
+            <x-dashboard-sidebar role="organizer" :current-route="request()->route()->getName()" />
 
-    <div class="py-12">
+        <div class="p-12 flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 lg:ml-0">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <!-- Total Revenue Summary -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -207,4 +205,5 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+    </div>
+@endsection

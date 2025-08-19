@@ -1,4 +1,5 @@
-<x-app-layout>
+@extends('layouts.dashbord')
+@section('content')
     <div class="flex h-screen bg-gray-100">
         <!-- Sidebar -->
         <x-dashboard-sidebar role="organizer" :current-route="request()->route()->getName()" />
@@ -350,4 +351,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

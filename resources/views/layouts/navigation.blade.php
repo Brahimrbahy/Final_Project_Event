@@ -22,10 +22,7 @@
                         </x-nav-link>
                     @endauth
 
-                    <!-- Public Events Link -->
-                    <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.*')">
-                        {{ __('Events') }}
-                    </x-nav-link>
+                    
 
                     @auth
                         @if(Auth::user() && Auth::user()->isAdmin())
