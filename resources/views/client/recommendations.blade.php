@@ -1,12 +1,15 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Recommended Events') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashbord')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+@section('content')
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <x-dashboard-sidebar role="client" :current-route="request()->route()->getName()" />
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 lg:ml-0">
+            <x-client-header />
+
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <!-- Header Section -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -213,6 +216,7 @@
                     </div>
                 </div>
             @endif
+            </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

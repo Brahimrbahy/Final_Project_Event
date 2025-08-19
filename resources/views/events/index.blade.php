@@ -393,138 +393,121 @@
                 @if ($events->count() > 0)
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($events as $event)
-                            <div
-                                class="bg-slate-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 event-card">
+                            <!-- Event Card with iOS Glassmorphism Style -->
+                            <div class="backdrop-blur-xl bg-white/10 border border-[#48ff91] rounded-2xl overflow-hidden shadow-2xl hover:shadow-[0_32px_64px_rgba(0,0,0,0.3)] hover:bg-white/15 transition-all duration-500 transform hover:-translate-y-2 event-card relative before:absolute before:inset-0 before:rounded-2xl before:p-px before:bg-gradient-to-b before:from-white/20 before:to-transparent before:mask-composite-[subtract] before:mask-[linear-gradient(#fff_0_0)] group">
                                 <!-- Event Image -->
                                 <div class="relative">
                                     @if ($event->image_path)
-                                        <img src="{{ Storage::url($event->image_path) }}" alt="{{ $event->title }}"
-                                            class="w-full h-[300px] object-cover">
+                                        <img src="{{ Storage::url($event->image_path) }}"
+                                             alt="{{ $event->title }}"
+                                             class="w-full h-48 object-cover">
                                     @else
-                                        <div
-                                            class="w-full h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                                            <svg class="w-16 h-16 text-white opacity-50" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z">
-                                                </path>
+                                        <div class="w-full h-48 bg-gradient-to-br from-blue-500/80 via-purple-600/80 to-pink-500/80 backdrop-blur-sm flex items-center justify-center relative">
+                                            <!-- Subtle glass overlay -->
+                                            <div class="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+                                            <svg class="w-16 h-16 text-white/70 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z"></path>
                                             </svg>
                                         </div>
                                     @endif
 
                                     <!-- Category Badge -->
                                     <div class="absolute top-3 left-3">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md bg-blue-500/80 text-white border border-blue-400/30 shadow-lg">
                                             {{ $event->category }}
                                         </span>
                                     </div>
 
                                     <!-- Price Badge -->
                                     <div class="absolute top-3 right-3">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                            {{ $event->type === 'free' ? 'bg-green-600 text-white' : 'bg-purple-600 text-white' }}">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md border shadow-lg
+                                            {{ $event->type === 'free' ? 'bg-green-500/80 text-white border-green-400/30' : 'bg-purple-500/80 text-white border-purple-400/30' }}">
                                             {{ $event->type === 'free' ? 'Gratuit' : number_format($event->price, 2) . ' €' }}
                                         </span>
                                     </div>
 
                                     <!-- Sold Out Overlay -->
                                     @if ($event->max_tickets && $event->tickets_sold >= $event->max_tickets)
-                                        <div
-                                            class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-                                            <span
-                                                class="bg-red-600 text-white px-4 py-2 rounded-[50px] font-bold text-lg">
-                                                Sold out
+                                        <div class="absolute inset-0 backdrop-blur-sm bg-black/40 flex items-center justify-center">
+                                            <span class="bg-red-500/90 backdrop-blur-md text-white px-6 py-3 rounded-2xl font-bold text-lg border border-red-400/30 shadow-2xl">
+                                                Sold Out
                                             </span>
                                         </div>
                                     @endif
                                 </div>
 
                                 <!-- Event Content -->
-                                <div class="p-6">
-                                    <!-- Event Title -->
-                                    <h3 class="text-lg font-semibold text-white mb-2 line-clamp-2">
-                                        <a href="{{ route('events.show', $event) }}"
-                                            class="hover:text-blue-400 transition-colors">
-                                            {{ $event->title }}
-                                        </a>
-                                    </h3>
+                                <div class="p-6 relative">
+                                    <!-- Subtle inner glow -->
+                                    <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-b-2xl pointer-events-none"></div>
 
-                                    <!-- Event Description -->
-                                    <p class="text-gray-300 text-sm mb-4 line-clamp-2">
-                                        {{ Str::limit($event->description, 100) }}
-                                    </p>
+                                    <div class="relative z-10">
+                                        <!-- Event Title -->
+                                        <h3 class="text-lg font-semibold text-white/95 mb-2 line-clamp-2 drop-shadow-sm">
+                                            <a href="{{ route('events.show', $event) }}" class="hover:text-blue-300 transition-colors duration-300">
+                                                {{ $event->title }}
+                                            </a>
+                                        </h3>
 
-                                    <!-- Event Details -->
-                                    <div class="space-y-2 mb-4">
-                                        <!-- Date -->
-                                        <div class="flex items-center text-sm text-gray-300">
-                                            <svg class="w-4 h-4 mr-2 text-blue-400" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z">
-                                                </path>
-                                            </svg>
-                                            {{ $event->start_date->format('d M Y à H:i') }}
-                                        </div>
+                                        <!-- Event Description -->
+                                        <p class="text-white/70 text-sm mb-4 line-clamp-2 drop-shadow-sm">
+                                            {{ Str::limit($event->description, 100) }}
+                                        </p>
 
-                                        <!-- Location -->
-                                        <div class="flex items-center text-sm text-gray-300">
-                                            <svg class="w-4 h-4 mr-2 text-blue-400" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                                </path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            {{ Str::limit($event->location, 30) }}
-                                        </div>
-
-                                        <!-- Organizer -->
-                                        <div class="flex items-center text-sm text-gray-300">
-                                            <svg class="w-4 h-4 mr-2 text-blue-400" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                                </path>
-                                            </svg>
-                                            par {{ $event->organizer->name }}
-                                        </div>
-
-                                        <!-- Tickets Available -->
-                                        @if ($event->max_tickets)
-                                            <div class="flex items-center text-sm text-gray-300">
-                                                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none"
-                                                    stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a1 1 0 001 1h1a1 1 0 001-1V7a2 2 0 00-2-2H5zM5 21a2 2 0 01-2-2v-3a1 1 0 011-1h1a1 1 0 011 1v3a2 2 0 01-2 2H5z">
-                                                    </path>
+                                        <!-- Event Details -->
+                                        <div class="space-y-2 mb-4">
+                                            <!-- Date -->
+                                            <div class="flex items-center text-sm text-white/80">
+                                                <svg class="w-4 h-4 mr-2 text-blue-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z"></path>
                                                 </svg>
-                                                {{ $event->max_tickets - $event->tickets_sold }} places disponibles
+                                                {{ $event->start_date->format('d M Y à H:i') }}
                                             </div>
-                                        @endif
-                                    </div>
 
-                                    <!-- Action Button -->
-                                    <div class="flex items-center justify-between">
-                                        <a href="{{ route('events.show', $event) }}"
-                                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-2">
-                                            <span>Voir Détails</span>
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                        </a>
+                                            <!-- Location -->
+                                            <div class="flex items-center text-sm text-white/80">
+                                                <svg class="w-4 h-4 mr-2 text-blue-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                </svg>
+                                                {{ Str::limit($event->location, 30) }}
+                                            </div>
 
-                                        @if ($event->start_date > now())
-                                            <span class="text-xs text-green-400 font-medium">À venir</span>
-                                        @else
-                                            <span class="text-xs text-gray-500 font-medium">Terminé</span>
-                                        @endif
+                                            <!-- Organizer -->
+                                            <div class="flex items-center text-sm text-white/80">
+                                                <svg class="w-4 h-4 mr-2 text-blue-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                </svg>
+                                                par {{ $event->organizer->name }}
+                                            </div>
+
+                                            <!-- Tickets Available -->
+                                            @if ($event->max_tickets)
+                                                <div class="flex items-center text-sm text-white/80">
+                                                    <svg class="w-4 h-4 mr-2 text-blue-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a1 1 0 001 1h1a1 1 0 001-1V7a2 2 0 00-2-2H5zM5 21a2 2 0 01-2-2v-3a1 1 0 011-1h1a1 1 0 011 1v3a2 2 0 01-2 2H5z"></path>
+                                                    </svg>
+                                                    {{ $event->max_tickets - $event->tickets_sold }} places disponibles
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <!-- Action Button -->
+                                        <div class="flex items-center justify-between">
+                                            <a href="{{ route('events.show', $event) }}"
+                                               class="backdrop-blur-md bg-[#052cff]/80 hover:bg-[#48ff91] text-white px-6 py-2.5 rounded-[50px] text-sm font-semibold transition-all duration-300 flex items-center space-x-2 border border-blue-400/30 shadow-lg hover:shadow-xl hover:scale-105 group-hover:bg-blue-400/80">
+                                                <span>Voir Détails</span>
+                                                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                </svg>
+                                            </a>
+
+                                            @if ($event->start_date > now())
+                                                <span class="text-xs text-green-300/90 font-semibold backdrop-blur-sm bg-green-500/20 px-2 py-1 rounded-lg border border-green-400/20">À venir</span>
+                                            @else
+                                                <span class="text-xs text-gray-300/70 font-semibold backdrop-blur-sm bg-gray-500/20 px-2 py-1 rounded-lg border border-gray-400/20">Terminé</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -578,7 +561,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white py-12">
+     <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Company Info -->
@@ -593,22 +576,25 @@
                         exceptionnels.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
+                                class="bi bi-facebook" viewBox="0 0 16 16">
                                 <path
-                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
+                                class="bi bi-instagram" viewBox="0 0 16 16">
                                 <path
-                                    d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z" />
+                                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
+                                class="bi bi-twitter-x" viewBox="0 0 16 16">
                                 <path
-                                    d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z" />
+                                    d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
                             </svg>
                         </a>
                     </div>
@@ -619,13 +605,14 @@
                     <h4 class="text-lg font-semibold mb-4">Liens Rapides</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('welcome') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Accueil</a></li>
+                                class="text-gray-300 hover:text-[#48ff91] transition-colors">Accueil</a></li>
                         <li><a href="{{ route('events.index') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Événements</a></li>
+                                class="text-gray-300 hover:text-[#48ff91] transition-colors">Événements</a></li>
                         <li><a href="{{ route('register.organizer') }}"
-                                class="text-gray-300 hover:text-white transition-colors">Devenir Organisateur</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">À Propos</a>
+                                class="text-gray-300 hover:text-[#48ff91] transition-colors">Devenir Organisateur</a>
                         </li>
+                        <li><a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">À
+                                Propos</a></li>
                     </ul>
                 </div>
 
@@ -633,14 +620,14 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Support</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Centre
+                        <li><a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">Centre
                                 d'Aide</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                        <li><a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">Contact</a>
                         </li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Conditions
+                        <li><a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">Conditions
                                 d'Utilisation</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Politique de
-                                Confidentialité</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-[#48ff91] transition-colors">Politique
+                                de Confidentialité</a></li>
                     </ul>
                 </div>
             </div>
