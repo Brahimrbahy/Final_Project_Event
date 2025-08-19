@@ -25,7 +25,7 @@
 
             <!-- Title -->
             <div class="mb-8">
-                <h1 class="text-3xl font-normal text-white mb-2">Login to Guichet.com</h1>
+                <h1 class="text-3xl font-normal text-white mb-2">Login to MyGuichet</h1>
             </div>
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
@@ -79,7 +79,7 @@
 
                 <!-- Login Button -->
                 <button type="submit"
-                        class="w-full bg-white text-black font-medium py-3 px-4 rounded-[50px] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900 transition duration-200">
+                        class="w-full bg-white text-black font-medium py-3 px-4 rounded-[50px]  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900 hover:bg-[#48ff91] transition duration-200">
                     Login
                 </button>
 
@@ -87,7 +87,7 @@
                 <div class="text-center mt-6">
                     <p class="text-gray-400 mb-4">Don't have an account?</p>
                     <a href="{{ route('register') }}"
-                       class="inline-block border-2 border-orange-500 text-orange-500 font-medium py-2 px-6 rounded-[50px] hover:bg-orange-500 hover:text-white transition duration-200">
+                       class="inline-block border-2 border-[#052cff] text-[#052cff] font-medium py-2 px-6 rounded-[50px] hover:bg-[#48ff91] hover:border-[#48ff91] hover:text-white transition duration-200">
                         Create an account
                     </a>
                 </div>
