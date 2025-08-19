@@ -110,7 +110,7 @@ DB_PASSWORD=
 MAIL_MAILER=smtp
 MAIL_HOST=127.0.0.1
 MAIL_PORT=1025
-MAIL_FROM_ADDRESS="noreply@eventmanagement.com"
+MAIL_FROM_ADDRESS="noreply@MyGuichet.com"
 MAIL_FROM_NAME="Event Management System"
 ```
 

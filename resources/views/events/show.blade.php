@@ -22,21 +22,33 @@
             transition: all 0.3s ease;
         }
 
-        /* Mobile menu toggle */
         .mobile-menu-hidden {
             display: none;
         }
 
-        /* Event details styling */
-        .event-detail-card {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            border-radius: 16px;
+        /* Event details styling inspired by the image */
+        .main-container {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+
+        .event-card-modern {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            border-radius: 24px;
             overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
         .event-image-container {
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
+            margin: 20px;
+            height: 400px;
+        }
+
+        .event-image-container img {
+            border-radius: 20px;
         }
 
         .event-image-container::after {
@@ -45,29 +57,100 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 50%;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            height: 60%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            border-radius: 0 0 20px 20px;
+        }
+
+        .event-info-overlay {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            z-index: 10;
         }
 
         .organizer-badge {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
         }
 
         .buy-now-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #48ff91 0%, #00d665 100%);
+            color: #0f172a;
+            border-radius: 25px;
             transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .buy-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(72, 255, 145, 0.4);
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .category-badge {
+            background: linear-gradient(135deg, #48ff91 0%, #00d665 100%);
+            color: #0f172a;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, #48ff91 0%, #00d665 100%);
+            color: #0f172a;
+            border-radius: 50px;
+            padding: 16px 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .action-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px rgba(72, 255, 145, 0.4);
+        }
+
+        .date-highlight {
+            color: #48ff91;
+            font-weight: 600;
+        }
+
+        .geometric-pattern {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 100px;
+            height: 100px;
+            opacity: 0.6;
+            background: linear-gradient(45deg, #48ff91, #00d665);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         }
     </style>
 </head>
 
-<body class="font-sans antialiased bg-[#0f172a]">
+<body class="font-sans antialiased">
     <!-- Three-Line Navigation Structure -->
     <nav class="sticky top-0 z-50" style="background-color: #1a2332;">
         <!-- Line 1: Top Navigation (Logo + Auth) -->
@@ -77,10 +160,9 @@
                     <!-- Logo Section -->
                     <div class="flex-shrink-0">
                         <a href="{{ route('welcome') }}" class="flex items-center">
-                            <h1 class="text-3xl font-bold text-white tracking-wide">
-                                <span class="text-red-500">G</span><span class="text-yellow-400">u</span><span
-                                    class="text-green-500">i</span><span class="text-blue-500">c</span><span
-                                    class="text-white">het</span>
+                           <h1 class="text-3xl font-bold text-white tracking-wide">
+                                <span class="text-[#48ff91]">My</span>
+                                <span class="text-white">Guichet</span>
                             </h1>
                         </a>
                     </div>
@@ -90,15 +172,15 @@
                         @auth
                             @if (Auth::user()->isAdmin())
                                 <a href="{{ route('admin.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">Admin
+                                    class="text-white hover:text-[#48ff91]px-3 py-2 text-sm font-medium transition-colors">Admin
                                     Dashboard</a>
                             @elseif(Auth::user()->isOrganizer())
                                 <a href="{{ route('organizer.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">My
                                     Dashboard</a>
                             @else
                                 <a href="{{ route('client.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">My
                                     Tickets</a>
                             @endif
 
@@ -402,156 +484,160 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="min-h-screen bg-[#0f172a] text-white">
+    <main class="main-container">
         <!-- Back Button -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
             <button onclick="history.back()"
-                class="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors mb-6">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                class="flex items-center space-x-2 text-gray-300 hover:text-[#48ff91] transition-colors mb-8">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
-                <span>Retour</span>
+                <span class="text-lg">Retour</span>
             </button>
         </div>
 
         <!-- Event Details Container -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <div class="grid grid-cols-1 xl:grid-cols-5 gap-12">
                 <!-- Event Image and Details -->
-                <div class="lg:col-span-2">
-                    <div class="event-detail-card">
-                        <!-- Event Image -->
+                <div class="xl:col-span-3">
+                    <div class="event-card-modern">
+                        <!-- Event Image with Overlays -->
                         @if ($event->image_path)
-                            <div class="event-image-container h-96 relative">
+                            <div class="event-image-container relative">
                                 <img src="{{ Storage::url($event->image_path) }}" alt="{{ $event->title }}"
                                     class="w-full h-full object-cover">
+                                
+                                <!-- Geometric Pattern -->
+                                <div class="geometric-pattern"></div>
 
                                 <!-- Organizer Badge Overlay -->
-                                <div class="absolute top-4 left-4">
-                                    <div class="organizer-badge rounded-full px-4 py-2 flex items-center space-x-2">
-                                        <div
-                                            class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                            <span
-                                                class="text-white text-sm font-bold">{{ substr($event->organizer->name, 0, 1) }}</span>
+                                <div class="absolute top-6 left-6">
+                                    <div class="organizer-badge px-4 py-2 flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-gradient-to-r from-[#48ff91] to-[#00d665] rounded-full flex items-center justify-center">
+                                            <span class="text-[#0f172a] text-sm font-bold">{{ substr($event->organizer->name, 0, 1) }}</span>
                                         </div>
-                                        <span
-                                            class="text-white text-sm font-medium">{{ $event->organizer->name }}</span>
+                                        <span class="text-white text-sm font-medium">{{ $event->organizer->name }}</span>
                                     </div>
                                 </div>
 
                                 <!-- Share and Favorite Icons -->
-                                <div class="absolute top-4 right-4 flex space-x-2">
-                                    <button
-                                        class="w-10 h-10 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white hover:bg-opacity-75 transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
+                                <div class="absolute top-6 right-6 flex space-x-3">
+                                    <button class="w-12 h-12 bg-black bg-opacity-30 backdrop-filter backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-opacity-50 transition-all">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z">
                                             </path>
                                         </svg>
                                     </button>
-                                    <button
-                                        class="w-10 h-10 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white hover:bg-opacity-75 transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
+                                    <button class="w-12 h-12 bg-black bg-opacity-30 backdrop-filter backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-opacity-50 transition-all">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
                                             </path>
                                         </svg>
                                     </button>
                                 </div>
+
+                                <!-- Event Info Overlay -->
+                                <div class="event-info-overlay">
+                                    <div class="flex items-center space-x-3 mb-3">
+                                        <span class="category-badge px-4 py-1 text-sm">{{ $event->category }}</span>
+                                        @if ($event->start_date > now())
+                                            <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">À venir</span>
+                                        @else
+                                            <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-xs font-medium">Terminé</span>
+                                        @endif
+                                    </div>
+                                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ $event->title }}</h1>
+                                    
+                                    <!-- Location and Date -->
+                                    <div class="space-y-2">
+                                        <div class="flex items-center space-x-3 text-white">
+                                            <svg class="w-5 h-5 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            <span class="text-lg">{{ $event->location }}</span>
+                                        </div>
+                                        <div class="flex items-center space-x-3 text-white">
+                                            <svg class="w-5 h-5 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z">
+                                                </path>
+                                            </svg>
+                                            <span class="text-lg">
+                                                <span class="date-highlight">{{ $event->start_date->format('j F Y') }}</span>
+                                                @if($event->end_date && $event->end_date != $event->start_date)
+                                                    - <span class="date-highlight">{{ $event->end_date->format('j F Y') }}</span>
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         @endif
 
                         <!-- Event Content -->
                         <div class="p-8">
-                            <!-- Event Title and Basic Info -->
-                            <div class="mb-6">
-                                <h1 class="text-4xl font-bold text-white mb-4">{{ $event->title }}</h1>
-
-                                <!-- Location -->
-                                <div class="flex items-center space-x-2 text-gray-300 mb-2">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                        </path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                    <span>{{ $event->location }}</span>
-                                </div>
-
-                                <!-- Date -->
-                                <div class="flex items-center space-x-2 text-gray-300">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                    <span>Du {{ $event->start_date->format('j F Y') }} au
-                                        {{ $event->end_date ? $event->end_date->format('j F Y') : $event->start_date->format('j F Y') }}</span>
-                                </div>
-                            </div>
-
                             <!-- Description -->
                             <div class="mb-8">
+                                <h2 class="text-2xl font-bold text-white mb-4">À propos de l'événement</h2>
                                 <p class="text-gray-300 leading-relaxed text-lg">{{ $event->description }}</p>
                             </div>
 
                             <!-- Event Details Grid -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                                <!-- Category -->
-                                <div class="bg-slate-800 rounded-lg p-4">
-                                    <h3 class="text-white font-semibold mb-2">Catégorie</h3>
-                                    <span
-                                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                                        {{ $event->category }}
-                                    </span>
-                                </div>
-
                                 <!-- Price -->
-                                <div class="bg-slate-800 rounded-lg p-4">
-                                    <h3 class="text-white font-semibold mb-2">Prix</h3>
+                                <div class="info-card">
+                                    <div class="flex items-center space-x-3 mb-2">
+                                        <svg class="w-6 h-6 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                        </svg>
+                                        <h3 class="text-white font-semibold text-lg">Prix</h3>
+                                    </div>
                                     @if ($event->type === 'free')
-                                        <span class="text-green-400 font-bold text-lg">Gratuit</span>
+                                        <span class="text-[#48ff91] font-bold text-2xl">Gratuit</span>
                                     @else
-                                        <span
-                                            class="text-white font-bold text-lg">${{ number_format($event->price, 2) }}</span>
+                                        <span class="text-white font-bold text-2xl">${{ number_format($event->price, 2) }}</span>
                                     @endif
                                 </div>
 
                                 <!-- Availability -->
                                 @if ($event->max_tickets)
-                                    <div class="bg-slate-800 rounded-lg p-4">
-                                        <h3 class="text-white font-semibold mb-2">Disponibilité</h3>
-                                        <span class="text-gray-300">{{ $event->max_tickets - $event->tickets_sold }} /
-                                            {{ $event->max_tickets }} places</span>
+                                    <div class="info-card">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <svg class="w-6 h-6 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path>
+                                            </svg>
+                                            <h3 class="text-white font-semibold text-lg">Disponibilité</h3>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-[#48ff91] font-bold text-xl">{{ $event->max_tickets - $event->tickets_sold }}</span>
+                                            <span class="text-gray-300">sur {{ $event->max_tickets }} places</span>
+                                        </div>
+                                        <!-- Progress Bar -->
+                                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                            <div class="bg-gradient-to-r from-[#48ff91] to-[#00d665] h-2 rounded-full" 
+                                                 style="width: {{ (($event->max_tickets - $event->tickets_sold) / $event->max_tickets) * 100 }}%"></div>
+                                        </div>
                                     </div>
                                 @endif
-
-                                <!-- Status -->
-                                <div class="bg-slate-800 rounded-lg p-4">
-                                    <h3 class="text-white font-semibold mb-2">Statut</h3>
-                                    @if ($event->start_date > now())
-                                        <span
-                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                                            À venir
-                                        </span>
-                                    @else
-                                        <span
-                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
-                                            Terminé
-                                        </span>
-                                    @endif
-                                </div>
                             </div>
 
                             <!-- Terms and Conditions -->
                             @if ($event->terms_conditions)
-                                <div class="bg-slate-800 rounded-lg p-6">
-                                    <h3 class="text-white font-semibold mb-4">Conditions générales</h3>
-                                    <p class="text-gray-300 text-sm leading-relaxed">{{ $event->terms_conditions }}
-                                    </p>
+                                <div class="info-card">
+                                    <h3 class="text-white font-semibold mb-4 text-lg flex items-center">
+                                        <svg class="w-5 h-5 text-[#48ff91] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Conditions générales
+                                    </h3>
+                                    <p class="text-gray-300 leading-relaxed">{{ $event->terms_conditions }}</p>
                                 </div>
                             @endif
                         </div>
@@ -559,28 +645,27 @@
                 </div>
 
                 <!-- Sidebar - Buy Now Section -->
-                <div class="lg:col-span-1">
+                <div class="xl:col-span-2">
                     <div class="sticky top-24">
                         <!-- Buy Now Card -->
                         @if ($event->start_date > now())
-                            <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                            <div class="sidebar-card p-8">
                                 <!-- Price Display -->
-                                <div class="text-center mb-6">
+                                <div class="text-center mb-8">
                                     @if ($event->type === 'free')
-                                        <div class="text-3xl font-bold text-green-600 mb-2">Gratuit</div>
-                                        <div class="text-sm text-gray-500">Événement gratuit</div>
+                                        <div class="text-4xl font-bold text-[#48ff91] mb-3">Gratuit</div>
+                                        <div class="text-sm text-gray-600">Événement gratuit</div>
                                     @else
-                                        <div class="text-3xl font-bold text-gray-900 mb-2">
+                                        <div class="text-4xl font-bold text-gray-900 mb-3">
                                             ${{ number_format($event->price, 2) }}</div>
-                                        <div class="text-sm text-gray-500">par billet</div>
+                                        <div class="text-sm text-gray-600">par billet</div>
                                     @endif
                                 </div>
 
                                 <!-- Availability Check -->
                                 @if ($event->max_tickets && $event->tickets_sold >= $event->max_tickets)
-                                    <div
-                                        class="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-6 text-center">
-                                        <strong>Sold Out !</strong><br>
+                                    <div class="bg-red-50 border-2 border-red-200 text-red-700 px-6 py-6 rounded-2xl mb-8 text-center">
+                                        <div class="text-2xl font-bold mb-2">Complet !</div>
                                         <span class="text-sm">Aucun billet disponible</span>
                                     </div>
                                 @else
@@ -588,29 +673,28 @@
                                     @auth
                                         @if (Auth::user()->isClient())
                                             <a href="{{ route('tickets.select-quantity', $event) }}"
-                                                class="buy-now-btn block w-full text-white px-8 py-4 rounded-xl font-semibold text-center text-lg mb-4">
-                                                Buy now
+                                                class="action-button block w-full text-center text-lg mb-6 no-underline">
+                                                Acheter maintenant
                                             </a>
-                                            <p class="text-xs text-gray-500 text-center mb-6">
+                                            <p class="text-xs text-gray-500 text-center mb-8">
                                                 {{ $event->type === 'free' ? 'Réservation gratuite' : 'Sélectionnez la quantité et payez' }}
                                             </p>
                                         @else
-                                            <div
-                                                class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-6 py-4 rounded-lg mb-6 text-center">
+                                            <div class="bg-yellow-50 border-2 border-yellow-200 text-yellow-800 px-6 py-6 rounded-2xl mb-8 text-center">
+                                                <div class="font-semibold mb-1">Accès restreint</div>
                                                 <span class="text-sm">Seuls les clients peuvent acheter des billets</span>
                                             </div>
                                         @endif
                                     @else
-                                        <div class="space-y-3 mb-6">
-                                            <p class="text-sm text-gray-600 text-center">Connectez-vous pour acheter des
-                                                billets</p>
-                                            <div class="flex flex-col space-y-2">
+                                        <div class="space-y-4 mb-8">
+                                            <p class="text-gray-700 text-center font-medium">Connectez-vous pour acheter des billets</p>
+                                            <div class="flex flex-col space-y-3">
                                                 <a href="{{ route('login') }}"
-                                                    class="w-full bg-[#052cff] hover:bg-[#48ff91] hover:text-[#052cff] rounded-[50px] text-white px-6 py-3  font-medium text-center transition-colors">
+                                                    class="w-full bg-[#052cff] hover:bg-[#48ff91] hover:text-[#052cff] rounded-[50px] text-white px-8 py-4 font-semibold text-center transition-colors">
                                                     Se connecter
                                                 </a>
                                                 <a href="{{ route('register.client') }}"
-                                                    class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-[50px] font-medium text-center transition-colors">
+                                                    class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded-[50px] font-semibold text-center transition-colors">
                                                     Créer un compte
                                                 </a>
                                             </div>
@@ -618,24 +702,56 @@
                                     @endauth
                                 @endif
 
+                                <!-- Event Info Summary -->
+                                <div class="space-y-4 text-sm text-gray-600">
+                                    <!-- Date -->
+                                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                        <span class="font-medium">Date</span>
+                                        <span class="text-right">
+                                            {{ $event->start_date->format('j M Y') }}
+                                            @if($event->end_date && $event->end_date != $event->start_date)
+                                                - {{ $event->end_date->format('j M Y') }}
+                                            @endif
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- Location -->
+                                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                        <span class="font-medium">Lieu</span>
+                                        <span class="text-right">{{ $event->location }}</span>
+                                    </div>
+                                    
+                                    <!-- Category -->
+                                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                        <span class="font-medium">Catégorie</span>
+                                        <span class="text-right">{{ $event->category }}</span>
+                                    </div>
+
+                                    <!-- Organizer -->
+                                    <div class="flex items-center justify-between py-3">
+                                        <span class="font-medium">Organisateur</span>
+                                        <span class="text-right">{{ $event->organizer->name }}</span>
+                                    </div>
+                                </div>
+
                                 <!-- Ticket Counter -->
                                 @if ($event->max_tickets)
-                                    <div class="text-center text-sm text-gray-500">
-                                        {{ $event->max_tickets - $event->tickets_sold }} billets restants
+                                    <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+                                        <div class="text-2xl font-bold text-gray-900 mb-1">{{ $event->max_tickets - $event->tickets_sold }}</div>
+                                        <div class="text-sm text-gray-600">billets restants</div>
                                     </div>
                                 @endif
                             </div>
                         @else
                             <!-- Event Ended -->
-                            <div class="bg-gray-100 rounded-2xl p-8 text-center">
-                                <div class="text-gray-600 mb-4">
-                                    <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            <div class="sidebar-card p-8 text-center">
+                                <div class="text-gray-400 mb-6">
+                                    <svg class="w-20 h-20 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Événement terminé</h3>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Événement terminé</h3>
                                 <p class="text-gray-600">Cet événement s'est terminé le
                                     {{ $event->start_date->format('j F Y') }}</p>
                             </div>

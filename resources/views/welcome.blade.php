@@ -134,15 +134,15 @@
                         @auth
                             @if (Auth::user()->isAdmin())
                                 <a href="{{ route('admin.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">Admin
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">Admin
                                     Dashboard</a>
                             @elseif(Auth::user()->isOrganizer())
                                 <a href="{{ route('organizer.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">My
                                     Dashboard</a>
                             @else
                                 <a href="{{ route('client.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">My
                                     Tickets</a>
                             @endif
 
@@ -575,52 +575,148 @@
         </section>
 
         <!-- Statistics Section -->
-        <section class="py-16  text-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold mb-4 text-[#48ff91]">
-                        Faites Confiance aux Organisateurs d'Événements
-                    </h2>
-                    <p class="text-lg text-gray-200">
-                        Rejoignez notre communauté grandissante de créateurs d'événements à succès
-                    </p>
-                </div>
+       <section class="py-16 text-white bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#48ff91] leading-tight">
+                Faites Confiance aux Organisateurs d'Événements
+            </h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Rejoignez notre communauté grandissante de créateurs d'événements à succès
+            </p>
+            <div class="w-24 h-1 bg-gradient-to-r from-[#48ff91] to-transparent mx-auto mt-6 rounded-full"></div>
+        </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    @php
-                        $stats = [
-                            ['number' => \App\Models\Event::count(), 'label' => 'Événements Créés', 'icon' => '🎪'],
-                            [
-                                'number' => \App\Models\Ticket::sum('quantity') ?: 0,
-                                'label' => 'Billets Vendus',
-                                'icon' => '🎫',
-                            ],
-                            [
-                                'number' => \App\Models\User::where('role', 'organizer')->count(),
-                                'label' => 'Organisateurs',
-                                'icon' => '👥',
-                            ],
-                            [
-                                'number' => \App\Models\User::where('role', 'client')->count(),
-                                'label' => 'Clients Satisfaits',
-                                'icon' => '😊',
-                            ],
-                        ];
-                    @endphp
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            @php
+                $stats = [
+                    [
+                        'number' => \App\Models\Event::count(),
+                        'label' => 'Événements Créés',
+                        'icon' => '<svg class="w-8 h-8 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>'
+                    ],
+                    [
+                        'number' => \App\Models\Ticket::sum('quantity') ?: 0,
+                        'label' => 'Billets Vendus',
+                        'icon' => '<svg class="w-8 h-8 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 11-4 0V7a2 2 0 00-2-2H5z"/></svg>'
+                    ],
+                    [
+                        'number' => \App\Models\User::where('role', 'organizer')->count(),
+                        'label' => 'Organisateurs',
+                        'icon' => '<svg class="w-8 h-8 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>'
+                    ],
+                    [
+                        'number' => \App\Models\User::where('role', 'client')->count(),
+                        'label' => 'Clients Satisfaits',
+                        'icon' => '<svg class="w-8 h-8 text-[#48ff91]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>'
+                    ],
+                ];
+            @endphp
 
-                    @foreach ($stats as $stat)
-                        <div
-                            class="text-center p-6 rounded-2xl bg-[#48ff91] bg-opacity-10 shadow-md hover:bg-opacity-20 transition">
-                            <div class="text-4xl mb-2">{{ $stat['icon'] }}</div>
-                            <div class="text-3xl font-bold text-[#48ff91] mb-1">
-                                {{ number_format($stat['number']) }}+
-                            </div>
-                            <div class="text-gray-200">{{ $stat['label'] }}</div>
-                        </div>
-                    @endforeach
+            @foreach ($stats as $index => $stat)
+                <div class="stat-card gradient-border text-center p-8 rounded-2xl hover:bg-opacity-30 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="icon-container inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#48ff91] bg-opacity-20 mb-6 transition-all duration-300 float-animation" style="animation-delay: {{ $index * 0.5 }}s;">
+                        {!! $stat['icon'] !!}
+                    </div>
+                    <div class="text-4xl md:text-5xl font-bold text-[#48ff91] mb-3 group-hover:scale-110 transition-transform duration-300 counter" data-target="{{ $stat['number'] }}">
+                        {{ number_format($stat['number']) }}+
+                    </div>
+                    <div class="text-gray-300 text-lg font-medium">{{ $stat['label'] }}</div>
+                    <div class="w-12 h-0.5 bg-[#48ff91] bg-opacity-50 mx-auto mt-3 group-hover:w-16 transition-all duration-300"></div>
                 </div>
+            @endforeach
+        </div>
+
+        <!-- Additional decorative elements -->
+        <div class="flex justify-center mt-16">
+            <div class="flex space-x-2">
+                <div class="w-2 h-2 bg-[#48ff91] rounded-full opacity-60"></div>
+                <div class="w-2 h-2 bg-[#48ff91] rounded-full opacity-80"></div>
+                <div class="w-2 h-2 bg-[#48ff91] rounded-full"></div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(72, 255, 145, 0.3); }
+        50% { box-shadow: 0 0 30px rgba(72, 255, 145, 0.5); }
+    }
+    
+    .float-animation { animation: float 3s ease-in-out infinite; }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    
+    .stat-card:hover .icon-container {
+        transform: scale(1.1) rotate(5deg);
+    }
+    
+    .gradient-border {
+        position: relative;
+        background: linear-gradient(45deg, rgba(72, 255, 145, 0.1), rgba(72, 255, 145, 0.05));
+        border: 1px solid rgba(72, 255, 145, 0.2);
+    }
+    
+    .gradient-border:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        padding: 1px;
+        background: linear-gradient(45deg, rgba(72, 255, 145, 0.3), transparent, rgba(72, 255, 145, 0.3));
+        border-radius: inherit;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .gradient-border:hover:before {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    // Add number counting animation
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter');
+        
+        counters.forEach(counter => {
+            const target = parseInt(counter.dataset.target);
+            let current = 0;
+            const increment = target / 60;
+            const duration = 2000;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                counter.textContent = Math.floor(current).toLocaleString() + '+';
+            }, duration / 60);
+        });
+    }
+    
+    // Trigger animation when section comes into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        observer.observe(document.querySelector('section'));
+    });
+</script>
 
 
 

@@ -63,15 +63,15 @@
                         @auth
                             @if (Auth::user()->isAdmin())
                                 <a href="{{ route('admin.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">Admin
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">Admin
                                     Dashboard</a>
                             @elseif(Auth::user()->isOrganizer())
                                 <a href="{{ route('organizer.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">My
                                     Dashboard</a>
                             @else
                                 <a href="{{ route('client.dashboard') }}"
-                                    class="text-white hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors">My
+                                    class="text-white hover:text-[#48ff91] px-3 py-2 text-sm font-medium transition-colors">My
                                     Tickets</a>
                             @endif
 
